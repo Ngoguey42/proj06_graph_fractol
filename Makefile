@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/16 09:08:13 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/16 12:53:28 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,7 +28,7 @@ INCLUDE = -I ./
 # MLX DRAWTYPE
 # CUDAFILES = draw_mandelbrot_cuda.cu
 # DRAWFILES = 
-DRAWFILES = draw_mandelbrot_async.c
+DRAWFILES = draw_mandelbrot_async.c draw_julia_async.c
 # DRAWFILES = draw_mandelbrot.c
 
 # MLX
@@ -60,10 +60,8 @@ LFTGRE = gre
 
 SRCSFILES = main.c events.c movements.c $(SPECIALFILES)\
 read_input.c\
- $(DRAWFILES)\
+$(DRAWFILES)\
 debug.c
-
-#draw_julia.c
 
 ERRSRCSFILES = ft_error.c
 

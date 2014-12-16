@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 14:47:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:10:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 12:31:21 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int	fra_puts_dst(t_fra fra, int dst, t_co c)
 		fra.s.dat[dst + i] = (char)c.s.b;
 		c.i >>= 8 ;
 	}
-	fra.s.dat[dst] = c.i;
+/* 	fra.s.dat[dst] = c.i; */
 	return (0);
 }

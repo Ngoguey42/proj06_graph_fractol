@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/15 16:08:34 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 08:13:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 13:25:34 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,34 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+F_COO				ft_cmult(F_COO c1, F_COO c2)
+{
+	F_T	tmp;
+
+	tmp = c1.x;
+	c1.x = c1.x * c2.x - c1.y * c2.y;
+	c1.y = tmp * c2.y + c1.y * c2.x;
+	return (c1);
+}
+
+
 static int			julia_escapeval(F_COO pix, int max_loop, F_COO c)
 {
-	F_COO	pix;
 	F_COO	tmp;
 	int		i;
 
-	ft_bzero(&pix, sizeof(F_COO));
 	i = 0;
 	while (i < max_loop)
 	{
 		i++;
-		tmp = pix;
-		pix.y = 2 * tmp.x * tmp.y + c.y;
-		pix.x = tmp.x * tmp.x - tmp.y * tmp.y + c.x;
+/* 		tmp = pix; */
+/* 		pix.y = 2 * tmp.x * tmp.y + c.y; */
+/* 		pix.x = tmp.x * tmp.x - tmp.y * tmp.y + c.x; */
+/* 		pix = ft_cmult(ft_cmult(pix, pix), ft_cmult(ft_cmult(pix, pix), ft_cmult(pix, pix))); */
+/* 		pix = ft_cmult(ft_cmult(pix, pix), pix); */
+		pix = ft_cmult(pix, pix);
+		pix.x += c.x;
+		pix.y += c.y;
 		if (STOPCOND(pix.x) || STOPCOND(pix.y))
 			break ;
 	}
@@ -38,55 +52,38 @@ static int			julia_escapeval(F_COO pix, int max_loop, F_COO c)
 static int		fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 {
 	int		j;
-
 	int		pair[2];
 
 	pair[0] = julia_escapeval(pix, fra.max_loop, fra.m_coo);
-	fra_puts_dst(fra, sta * 4, (pair[0] < fra.max_loop, fra.m_coo) ?
-				VCOTOI((pair[0] * 7) % 256, 0, 0, 0) : VCOTOI(0, 0, 0, 0));
+	PUTSDST(pair[0], sta);
 	pair[1] = julia_escapeval(ACOOTOL(pix.x + fra.pxin.x * 2, pix.y, 0),
 							  fra.max_loop, fra.m_coo);
-	fra_puts_dst(fra, (sta + 2) * 4, (pair[1] < fra.max_loop, fra.m_coo) ?
-				VCOTOI((pair[1] * 7) % 256, 0, 0, 0) : VCOTOI(0, 0, 0, 0));
+	PUTSDST(pair[1], sta + 2);
 	pix.x += fra.pxin.x;
 	sta++;
 	while (sta < end)
 	{
 		if (pair[0] == pair[1])
-			fra_puts_dst(fra, sta * 4, (pair[0] < fra.max_loop, fra.m_coo) ?
-						VCOTOI((pair[0] * 7) % 256, 0, 0, 0) : VCOTOI(0, 0, 0, 0));
+			PUTSDST(pair[0], sta);
 		else
 		{
 			j = julia_escapeval(pix, fra.max_loop, fra.m_coo);
-			fra_puts_dst(fra, sta * 4, (j < fra.max_loop, fra.m_coo) ?
-						VCOTOI((j * 7) % 256, 0, 0, 0) : VCOTOI(0, 0, 0, 0));
+			PUTSDST(j, sta);
 		}
 		pair[0] = pair[1];
 		pair[1] = julia_escapeval(ACOOTOL(pix.x + fra.pxin.x * 3, pix.y, 0),
 								  fra.max_loop, fra.m_coo);
-		fra_puts_dst(fra, (sta + 3) * 4, (pair[1] < fra.max_loop, fra.m_coo) ?
-					VCOTOI((pair[1] * 7) % 256, 0, 0, 0) : VCOTOI(0, 0, 0, 0));
+		PUTSDST(pair[1], sta + 3);
 		sta += 2;
 		pix.x += fra.pxin.x * 2;
 	}
-		
-/* 	while (sta < end) */
-/* 	{			 */
-/* 		if ((j = julia_escapeval(pix, fra.max_loop, fra.m_coo)) < fra.max_loop, fra.m_coo) */
-/* 			fra_puts_dst(fra, sta * 4, VCOTOI((j * 7) % 256, 0, 0, 0)); */
-/* 		else */
-/* 			fra_puts_dst(fra, sta * 4, VCOTOI(0, 0, 0, 0)); */
-/* 		sta++; */
-/* 		pix.x += fra.pxin.x; */
-/* 	} */
+	return (0);
 }
 
 static void		fra_draw_julia2(t_fra fra)
 {
 	int			i;
-	int			j;
 	F_COO		pix;
-	F_T			test;
 
 	pix = fra.coo;
 	i = -1 + WIN_Y / NUMTHREAD * (fra.part - 1);
@@ -116,6 +113,7 @@ int			fra_draw_julia(t_fra fra)
 	int			precisionloss;
 	int			i;
 
+	qprintf("%.5Lf %.5Lf\n", fra.m_coo.x, fra.m_coo.y);
 	fra.max_loop = NLOOP;
 	precisionloss = (F_NEXT(ABS(fra.coo.x), 1.0) >
 					ABS(fra.coo.x) + ABS(fra.pxin.x));

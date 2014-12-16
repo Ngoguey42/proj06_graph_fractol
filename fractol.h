@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:40:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 12:31:49 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@
 # define STARTCAMX1 -0xb.dacedfa66f81197p-4
 # define STARTCAMY1 -0x9.34880019ca16063p-5
 # define STARTZOOM1 0xe.00a24e21c9bc912p+47
+
+#define _PD1(A) (A <fra.max_loop)
+#define _PD2(A) VCOTOI((A * 7) % 256, 0, 0, 0)
+#define _PD3 VCOTOI(0, 0, 0, 255)
+#define PUTSDST(A, B) fra_puts_dst(fra, (B) * 4, _PD1(A) ? _PD2(A) : _PD3)
 
 /* x:- y: z: */
 
@@ -161,6 +166,7 @@ int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra);
 int     fra_motion_hook(int x, int y, t_fra *fra);
 int		fra_mouse_hook(int button,int x,int y,t_fra *fra);
 int		fra_loop_hook(t_fra *fra);
+int		fra_eval_screen_coords(t_fra *fra, int x, int y);
 
 /* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */
 

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:39:10 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 07:35:45 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 12:29:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,12 @@ typedef union	u_co
 		t_byte	b;
 		t_byte	g;
 		t_byte	r;
-		t_byte	a;		
+		t_byte	a;
 	}			s;
 	int			i;
 }				t_co;
+
+# define VCOTOI(R, G, B, A)	((t_co){{B, G, R, A}})
 
 typedef struct	u_cod
 {
@@ -253,7 +255,7 @@ typedef struct	s_img
 ** 		'VCOTOI2'	Color Int 'V'alue to 'I'nteger union.
 ** 		'DCOTOI'	'D'ouble color struct, to 'I'nteger color struct.
 */
-# define VCOTOI(R, G, B, A)	((t_co){{B, G, R, A}})
+
 # define BMASK(ARG)			(ARG & 0xff)
 # define GMASK(ARG)			(ARG & 0xff) >> 0x08
 # define RMASK(ARG)			(ARG & 0xff) >> 0x10

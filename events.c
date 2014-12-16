@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 09:17:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:44:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 12:14:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra)
 		fra_apply_zoom(fra, ZOOMSPEEDBASE);
 	else if (keycode == 5)
 		fra_apply_zoom(fra, 1 / ZOOMSPEEDBASE);
-	fra->m_cooscr = ACOOTOI(x, y, 0);
-	fra->ev[10] = 1;
+/* 	fra->m_cooscr = ACOOTOI(x, y, 0); */
+/* 	fra->ev[10] = 1; */
 	return (0);
 }
 
@@ -83,8 +83,12 @@ int		fra_motion_hook(int x, int y, t_fra *fra)
 {
 	fra->m_cooscr = ACOOTOI(x, y, 0);
 	if (fra->type == 1)
-		fra->m_coo = ACOOTOL(fra->coo.x + fra->pxin.x * (F_T)x,
-							fra->coo.y + fra->pxin.y * (F_T)y, 0);
+	{
+		fra_eval_screen_coords(fra, x, y);
+/* 		fra->m_coo = ACOOTOL(fra->coo.x + fra->pxin.x * (F_T)x, */
+/* 							fra->coo.y + fra->pxin.y * (F_T)y, 0); */
+/* 		fra->redraw = 1; */
+	}
 /* 	qprintf("%d %d %p\n", x, y, fra); */
 	return (0);
 }
@@ -113,7 +117,7 @@ int		fra_loop_hook(t_fra *fra)
     ft_clock_loophook();
     if (fra->redraw)
     {
-		qprintf("loophook");
+/* 		qprintf("loophook"); */
         fra->redraw = 0;
         fra_init_surface(*fra);
         fra_set_surface(*fra);

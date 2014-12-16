@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:43:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 11:31:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	fra_init_surface(t_fra fra)
 
 int fra_set_surface(t_fra fra)
 {
-	qprintf("lol");
-/* 	if (fra.type == 1) */
-/* 		fra_draw_julia(fra); */
-/* 	else if (fra.type == 2) */
+/* 	qprintf("lol"); */
+	if (fra.type == 1)
+		fra_draw_julia(fra);
+	else if (fra.type == 2)
 		fra_draw_mandelbrot(fra);
 	mlx_put_image_to_window(SERV, WIN1, fra.s.img, 0, 0);
 	return (0);

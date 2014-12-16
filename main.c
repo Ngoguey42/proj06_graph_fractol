@@ -6,15 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:37:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 13:00:28 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdlib.h>
-
-
-
 
 int	fra_show_hud(t_fra fra)
 {
@@ -68,7 +65,7 @@ int	main(int ac, char *av[])
 /* 	t_fra	**frat[1]; */
 
 	ft_bzero(&reffra, sizeof(t_fra));
-/* 	reffra.type = 2; */
+	reffra.type = 1;
 	reffra.loop_coef = 1.;
     reffra.mvmt_clockev = (t_clockev){&fra_move_void, &reffra,
 								   CLOCKS_PER_SEC / 48, 0, 0, 0x11};
