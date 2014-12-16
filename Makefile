@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/15 16:19:28 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/16 09:08:13 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -59,6 +59,7 @@ LFTG = g
 LFTGRE = gre
 
 SRCSFILES = main.c events.c movements.c $(SPECIALFILES)\
+read_input.c\
  $(DRAWFILES)\
 debug.c
 

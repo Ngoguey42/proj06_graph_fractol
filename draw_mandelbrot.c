@@ -6,15 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 07:55:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/15 15:57:15 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 08:20:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 #include <stdlib.h>
-
-#define NLOOP (int)(70. * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
-#define STOPCOND(ARG) (ARG > 100.)
 
 int			julia_zero_escape_val(F_COO pix, int max_loop)
 {

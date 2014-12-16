@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 08:57:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/11 06:58:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 08:48:43 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	fra_pause(t_fra *fra)
 {
-	fra_init_surface(*fra);
-	fra_set_surface(*fra);
-	fra_push_surface(*fra);
+/* 	fra_init_surface(*fra); */
+/* 	fra_set_surface(*fra); */
+/* 	fra_push_surface(*fra); */
 	mlx_loop(SERVP);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/15 16:14:00 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:02:07 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@
 # define XYSPEEDBASE 0.005
 # define ZOOMSPEEDBASE 1.005
 
-/* # define STARTCAMX -1.0 */
-/* # define STARTCAMY 1.0 */
-/* # define STARTZOOM 0.5 */
-# define STARTCAMX -0xb.dacedfa66f81197p-4
-# define STARTCAMY -0x9.34880019ca16063p-5
-# define STARTZOOM 0xe.00a24e21c9bc912p+47
+# define STARTCAMX2 -1.0
+# define STARTCAMY2 1.0
+# define STARTZOOM2 0.5
+
+# define STARTCAMX1 -0xb.dacedfa66f81197p-4
+# define STARTCAMY1 -0x9.34880019ca16063p-5
+# define STARTZOOM1 0xe.00a24e21c9bc912p+47
 
 /* x:- y: z: */
 
@@ -86,6 +87,9 @@
 # define KEYTUP 65362
 # define KEYTDO 65364
 
+#define NLOOP (int)(70. * fra.loop_coef * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
+#define STOPCOND(ARG) (ARG > 100.)
+
 /*
 ** 'struct s_fra':
 **		serv:		mlx X11 serv.
@@ -110,6 +114,7 @@ typedef struct	s_fra
 	int			redraw;
 	F_COO		coo;
 	F_T			zoom;
+	F_T			loop_coef;
 	F_COO		scdt;
 	F_COO		pxin;
 	int			max_loop;
@@ -141,7 +146,8 @@ int 	fra_set_surface(t_fra fra);
 int		fra_push_surface(t_fra fra);
 int		fra_quit(t_fra fra);
 
-int		fra_set_defpos(t_fra *fra);
+int		fra_set_defpos1(t_fra *fra);
+int		fra_set_defpos2(t_fra *fra);
 int		fra_move(t_fra *fra);
 int		fra_move_void(void *fra);
 int		fra_apply_zoom(t_fra *fra, F_T delta);
@@ -152,12 +158,12 @@ int		fra_keyup_hook(int keycode, t_fra *fra);
 int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra);
 /* int		fra_butup_hook(int keycode, int x, int y, t_fra *fra); */
 
-
+int     fra_motion_hook(int x, int y, t_fra *fra);
 int		fra_mouse_hook(int button,int x,int y,t_fra *fra);
 int		fra_loop_hook(t_fra *fra);
 
+int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]);
 
-
-void    fra_debug(t_fra fra);
+int		fra_show_hud(t_fra fra);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 09:17:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/12 15:21:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:15:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,102 +23,68 @@ int		fra_expose_hook(t_fra *fra)
 
 int		fra_keyup_hook(int keycode, t_fra *fra)
 {
-	int	t;
-
-	t = 0;
 	if (keycode == KEYQUI)
 		fra_quit(*fra);
-	if (keycode == 'p')
-	{
-/* 	fra_init_surface(*fra); */
-		fra_set_defpos(fra);
-	}
-	else if (keycode == 'w' && (t = 1))
+	else if (keycode == 'p')
+		fra_set_defpos1(fra);
+	else if (keycode == 'o')
+		fra_set_defpos2(fra);
+	else if (keycode == 'w')
 		fra->ev[0] = 0;
-	else if (keycode == 's' && (t = 1))
+	else if (keycode == 's')
 		fra->ev[1] = 0;
-/* 	else if (keycode == 'q' && (t = 1)) */
-/* 		fra->ev[2] = 0; */
-/* 	else if (keycode == 'e' && (t = 1)) */
-/* 		fra->ev[3] = 0; */
-	else if (keycode == 'a' && (t = 1))
+	else if (keycode == 'a')
 		fra->ev[4] = 0;
-	else if (keycode == 'd' && (t = 1))
+	else if (keycode == 'd')
 		fra->ev[5] = 0;
-/* 	else if (keycode == ' ' && (t = 1)) */
-/* 		fra->ev[6] = 0; */
-/* 	else if (keycode == 'c' && (t = 1)) */
-/* 		fra->ev[7] = 0; */
-/* 	else if (keycode == KEYTUP && (t = 1)) */
-/* 		fra->ev[8] = 0; */
-/* 	else if (keycode == KEYTDO && (t = 1)) */
-/* 		fra->ev[9] = 0; */
 	return (0);
 }
 
 int		fra_keydo_hook(int keycode, t_fra *fra)
 {
-	int	t;
-
-/* 	qprintf("received %p\n", fra); */
-	t = 0;
 	if (keycode == 'i')
-		fra_debug(*fra);
-	else if (keycode == 'w' && (t = 1))
+		fra_show_hud(*fra);
+	else if (keycode == '-')
+	{
+		fra->loop_coef -= fra->loop_coef < 0.15 ? 0. : 0.01;
+		fra->redraw = 1;
+		fra_show_hud(*fra);
+	}
+	else if (keycode == '=')
+	{
+		fra->loop_coef += fra->loop_coef > 5. ? 0. : 0.01;
+		fra->redraw = 1;
+		fra_show_hud(*fra);
+	}
+	else if (keycode == 'w')
 		fra->ev[0] = 1;
-	else if (keycode == 's' && (t = 1))
+	else if (keycode == 's')
 		fra->ev[1] = 1;
-/* 	else if (keycode == 'q' && (t = 1)) */
-/* 		fra->ev[2] = 1; */
-/* 	else if (keycode == 'e' && (t = 1)) */
-/* 		fra->ev[3] = 1; */
-	else if (keycode == 'a' && (t = 1))
+	else if (keycode == 'a')
 		fra->ev[4] = 1;
-	else if (keycode == 'd' && (t = 1))
+	else if (keycode == 'd')
 		fra->ev[5] = 1;
-/* 	else if (keycode == ' ' && (t = 1)) */
-/* 		fra->ev[6] = 1; */
-/* 	else if (keycode == 'c' && (t = 1)) */
-/* 		fra->ev[7] = 1; */
-/* 	else if (keycode == KEYTUP && (t = 1)) */
-/* 		fra->ev[8] = 1; */
-/* 	else if (keycode == KEYTDO && (t = 1)) */
-/* 		fra->ev[9] = 1; */
 	return (0);
 }
 
 int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra)
 {
-/* 	qprintf("received %p\n", fra); */
-/* 	qprintf("lol"); */
-/* 	if (keycode == 4) */
-/* 		fra->ev[2] = 1; */
-/* 	else if (keycode == 5) */
-/* 		fra->ev[3] = 1; */
-/* 	(void)x; */
-/* 	(void)y; */
-
 	if (keycode == 4)
 		fra_apply_zoom(fra, ZOOMSPEEDBASE);
 	else if (keycode == 5)
 		fra_apply_zoom(fra, 1 / ZOOMSPEEDBASE);
 	fra->m_cooscr = ACOOTOI(x, y, 0);
 	fra->ev[10] = 1;
-/* 	qprintf("butdo(%d)\n", keycode); */
-	(void)fra;
-	(void)keycode;
 	return (0);
 }
 
-int		fra_butup_hook(int keycode, int x, int y, t_fra *fra)
+int		fra_motion_hook(int x, int y, t_fra *fra)
 {
-/* 	qprintf("lol"); */
-	if (keycode == 4)
-		fra->ev[2] = 0;
-	else if (keycode == 5)
-		fra->ev[3] = 0;
-	(void)x;
-	(void)y;
+	fra->m_cooscr = ACOOTOI(x, y, 0);
+	if (fra->type == 1)
+		fra->m_coo = ACOOTOL(fra->coo.x + fra->pxin.x * (F_T)x,
+							fra->coo.y + fra->pxin.y * (F_T)y, 0);
+	qprintf("%d %d %p\n", x, y, fra);
 	return (0);
 }
 
@@ -152,18 +118,6 @@ int		fra_loop_hook(t_fra *fra)
         fra_push_surface(*fra);
     }
     return (0);
-/* 	int	t; */
-
-/* 	t = 0; */
-/* 	t += fra_move(fra); */
-/* 	t += fra->ev[10]; */
-/* 	if (t == 0) */
-/* 		return (0); */
-/* 	fra->ev[10] = 0; */
-/* 	fra_init_surface(*fra); */
-/* 	fra_set_surface(*fra); */
-/* 	fra_push_surface(*fra); */
-/* 	return (0); */
 }
 
 

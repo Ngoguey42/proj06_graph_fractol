@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 07:55:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/15 15:42:28 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:11:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <pthread.h>
-
-#define NLOOP (int)(70. * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
-#define STOPCOND(ARG) (ARG > 100.)
 
 int			julia_zero_escape_val(F_COO pix, int max_loop)
 {
@@ -80,14 +77,13 @@ int			fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 /* 		sta++; */
 /* 		pix.x += fra.pxin.x; */
 /* 	} */
+	return (0);
 }
 
 void		fra_draw_mandelbrot2(t_fra fra)
 {
 	int			i;
-	int			j;
 	F_COO		pix;
-	F_T			test;
 
 	pix = fra.coo;
 	i = -1 + WIN_Y / NUMTHREAD * (fra.part - 1);

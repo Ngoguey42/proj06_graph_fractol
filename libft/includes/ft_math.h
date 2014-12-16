@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:39:10 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/15 15:16:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 07:35:45 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,9 @@ typedef struct	s_img
 // # define DCOOMUL(O, OP) ACOOTOD(O.x * OP, O.y * OP, O.z * OP)
 # define DCOODIV(O, OP) ACOOTOD(O.x / OP, O.y / OP, O.z / OP)
 # define DCOOADDD(O, A) ACOOTOD(O.x + A.x, O.y + A.y, O.z + A.z)
+
+# define ICOOADDX(O, OP) ACOOTOI(O.x + OP, O.y, O.z)
+# define ICOOADDY(O, OP) ACOOTOI(O.x, O.y + OP, O.z)
 
 /*
 ** Colors operations to integer union.

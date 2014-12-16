@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/15 16:08:34 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/15 16:15:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 08:13:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <pthread.h>
-
-#define NLOOP (int)(70. * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
-#define STOPCOND(ARG) (ARG > 100.)
 
 static int			julia_escapeval(F_COO pix, int max_loop, F_COO c)
 {
