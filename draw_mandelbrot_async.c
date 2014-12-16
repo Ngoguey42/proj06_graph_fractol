@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 07:55:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:11:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:42:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int			fra_draw_mandelbrot(t_fra fra)
 	int			precisionloss;
 	int			i;
 
+	qprintf("salut");
 	fra.max_loop = NLOOP;
 	precisionloss = (F_NEXT(ABS(fra.coo.x), 1.0) >
 					ABS(fra.coo.x) + ABS(fra.pxin.x));

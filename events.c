@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 09:17:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:15:08 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:44:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		fra_expose_hook(t_fra *fra)
     fra_init_surface(*fra);
     fra_set_surface(*fra);
     fra_push_surface(*fra);
+	fra_show_hud(*fra);
 	return (0);
 }
 
@@ -84,7 +85,7 @@ int		fra_motion_hook(int x, int y, t_fra *fra)
 	if (fra->type == 1)
 		fra->m_coo = ACOOTOL(fra->coo.x + fra->pxin.x * (F_T)x,
 							fra->coo.y + fra->pxin.y * (F_T)y, 0);
-	qprintf("%d %d %p\n", x, y, fra);
+/* 	qprintf("%d %d %p\n", x, y, fra); */
 	return (0);
 }
 
@@ -112,6 +113,7 @@ int		fra_loop_hook(t_fra *fra)
     ft_clock_loophook();
     if (fra->redraw)
     {
+		qprintf("loophook");
         fra->redraw = 0;
         fra_init_surface(*fra);
         fra_set_surface(*fra);

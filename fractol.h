@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:02:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:40:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int     fra_motion_hook(int x, int y, t_fra *fra);
 int		fra_mouse_hook(int button,int x,int y,t_fra *fra);
 int		fra_loop_hook(t_fra *fra);
 
-int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]);
+/* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */
 
 int		fra_show_hud(t_fra fra);
 

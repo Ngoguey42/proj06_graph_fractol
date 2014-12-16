@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 09:10:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 09:37:47 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	fra_set_defpos2(t_fra *fra)
 int	main(int ac, char *av[])
 {
 	t_fra	reffra;
-	t_fra	**frat[1];
+/* 	t_fra	**frat[1]; */
 
 	ft_bzero(&reffra, sizeof(t_fra));
 /* 	reffra.type = 2; */
@@ -79,11 +79,11 @@ int	main(int ac, char *av[])
         return (1);
     }
     ft_dprintf(2, "Established connection to X-Window server. %p\n", reffra);
-	*frat = NULL;
-	fra_read_input(ac, av, reffra, frat);
+/* 	*frat = NULL; */
+/* 	fra_read_input(ac, av, reffra, frat); */
 
-/* 	if (fra_init_wi/\* ndow(&fra)) *\/ */
-/* 		return (1); */
-/* 	fra_pause(&fra); */
+	if (fra_init_window(&reffra))
+		return (1);
+	fra_pause(&reffra);
 	return (0);
 }
