@@ -20,7 +20,7 @@ Recommended bonuses:
 My additions:
 - [X] "+/-" keys to change the number of loops.
 - [X] Time dependant movements, instead of CPU dependant. ([events.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/events.c)) ([libft/srcs/ft_clock[...].c](https://github.com/Ngoguey42/proj06_graph_fractol/tree/master/libft/srcs))
-- [X] Multi core rendering. ([draw_julia_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_julia_async.c)) ([draw_mandelbrot_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_mandelbrot_async.c))
+- [X] Multi thread rendering. ([draw_julia_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_julia_async.c)) ([draw_mandelbrot_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_mandelbrot_async.c))
 - [ ] CUDA rendering. (failed at compilation) ([draw_mandelbrot_cuda.cu](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_mandelbrot_cuda.cu))
 - [ ] SDL compatibility.
 
