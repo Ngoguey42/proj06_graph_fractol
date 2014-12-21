@@ -16,54 +16,58 @@ int		fra_expose_hook(t_fra *fra)
 {
 	ft_printf("Expose Hook: %p\n", fra);
     fra_init_surface(*fra);
+	qprintf("salut  0\n");
     fra_set_surface(*fra);
+	qprintf("salut  1\n");
     fra_push_surface(*fra);
+	qprintf("salut  2\n");
 	fra_show_hud(*fra);
+	qprintf("salut  3\n");
 	return (0);
 }
 
 int		fra_keyup_hook(int keycode, t_fra *fra)
 {
-	if (keycode == KEYQUI)
+	if (keycode == FRAKEY_QUIT)
 		fra_quit(*fra);
-	else if (keycode == 'p')
+	else if (keycode == FRAKEY_P)
 		fra_set_defpos1(fra);
-	else if (keycode == 'o')
+	else if (keycode == FRAKEY_O)
 		fra_set_defpos2(fra);
-	else if (keycode == 'w')
+	else if (keycode == FRAKEY_W)
 		fra->ev[0] = 0;
-	else if (keycode == 's')
+	else if (keycode == FRAKEY_S)
 		fra->ev[1] = 0;
-	else if (keycode == 'a')
+	else if (keycode == FRAKEY_A)
 		fra->ev[4] = 0;
-	else if (keycode == 'd')
+	else if (keycode == FRAKEY_D)
 		fra->ev[5] = 0;
 	return (0);
 }
 
 int		fra_keydo_hook(int keycode, t_fra *fra)
 {
-	if (keycode == 'i')
+	if (keycode == FRAKEY_I)
 		fra_show_hud(*fra);
-	else if (keycode == '-')
+	else if (keycode == FRAKEY_MIN)
 	{
 		fra->loop_coef -= fra->loop_coef < 0.15 ? 0. : 0.01;
 		fra->redraw = 1;
 		fra_show_hud(*fra);
 	}
-	else if (keycode == '=')
+	else if (keycode == FRAKEY_EQU)
 	{
 		fra->loop_coef += fra->loop_coef > 5. ? 0. : 0.01;
 		fra->redraw = 1;
 		fra_show_hud(*fra);
 	}
-	else if (keycode == 'w')
+	else if (keycode == FRAKEY_W)
 		fra->ev[0] = 1;
-	else if (keycode == 's')
+	else if (keycode == FRAKEY_S)
 		fra->ev[1] = 1;
-	else if (keycode == 'a')
+	else if (keycode == FRAKEY_A)
 		fra->ev[4] = 1;
-	else if (keycode == 'd')
+	else if (keycode == FRAKEY_D)
 		fra->ev[5] = 1;
 	return (0);
 }

@@ -46,6 +46,5 @@ int	fra_puts_dst(t_fra fra, int dst, t_co c)
 		fra.s.dat[dst + i] = (char)c.s.b;
 		c.i >>= 8 ;
 	}
-/* 	fra.s.dat[dst] = c.i; */
 	return (0);
 }

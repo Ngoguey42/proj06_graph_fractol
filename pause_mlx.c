@@ -14,9 +14,6 @@
 
 void	fra_pause(t_fra *fra)
 {
-/* 	fra_init_surface(*fra); */
-/* 	fra_set_surface(*fra); */
-/* 	fra_push_surface(*fra); */
 	mlx_loop(SERVP);
 }
 

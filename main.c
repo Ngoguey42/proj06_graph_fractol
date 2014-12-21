@@ -65,17 +65,12 @@ int	main(int ac, char *av[])
 /* 	t_fra	**frat[1]; */
 
 	ft_bzero(&reffra, sizeof(t_fra));
-	reffra.type = 1;
+	reffra.type = 2;
 	reffra.loop_coef = 1.;
     reffra.mvmt_clockev = (t_clockev){&fra_move_void, &reffra,
 								   CLOCKS_PER_SEC / 48, 0, 0, 0x11};
 	fra_set_defpos2(&reffra);
-    if (!(reffra.serv = mlx_init()))
-    {
-        ft_dprintf(2, "Could not establish connection to X-Window server.\n");
-        return (1);
-    }
-    ft_dprintf(2, "Established connection to X-Window server. %p\n", reffra);
+
 /* 	*frat = NULL; */
 /* 	fra_read_input(ac, av, reffra, frat); */
 

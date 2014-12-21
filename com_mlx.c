@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include <fractol.h>
 #include <stdlib.h>
 
 int	fra_init_window(t_fra *fra)
 {
+    if (!(reffra.serv = mlx_init()))
+    {
+        ft_dprintf(2, "Could not establish connection to X-Window server.\n");
+        return (1);
+    }
+    ft_dprintf(2, "Established connection to X-Window server. %p\n", reffra);
     if (!(fra->win1 = mlx_new_window(SERVP, WIN_X, WIN_Y, "fra")))
     {
         ft_dprintf(2, "Could not create new window.\n");
@@ -38,14 +44,6 @@ int	fra_init_window(t_fra *fra)
 	return (0);
 }
 
-
-
-
-
-
-
-
-
 int	fra_init_surface(t_fra fra)
 {
 	(void)fra;
@@ -60,20 +58,17 @@ int fra_set_surface(t_fra fra)
 		fra_draw_julia(fra);
 	else if (fra.type == 2)
 		fra_draw_mandelbrot(fra);
-	mlx_put_image_to_window(SERV, WIN1, fra.s.img, 0, 0);
 	return (0);
 }
 
 int	fra_push_surface(t_fra fra)
 {
-	(void)fra;
-	//mdx_clean_surface
+	mlx_put_image_to_window(SERV, WIN1, fra.s.img, 0, 0);
 	return (0);
 }
 
 int	fra_quit(t_fra fra)
 {
 	mlx_destroy_window(SERV, WIN1);
-	(void)fra;
 	exit(EXIT_SUCCESS);
 }

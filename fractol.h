@@ -17,23 +17,65 @@
 # include <stdio.h>
 # include <libft.h>
 # include <ft_math.h>
+# include <ft_clock.h>
 // # include <ft_error.h>
 
-# define USEMLX
+// # define USEMLX
 # ifdef USEMLX
+#  include <mlx.h>
+#  define SERV fra.serv
+#  define WIN1 fra.win1
+#  define SERVP fra->serv
+#  define WIN1P fra->win1
 
-# include <mlx.h>
-# include <ft_clock.h>
-# define SERV fra.serv
-# define WIN1 fra.win1
-# define SERVP fra->serv
-# define WIN1P fra->win1
+#  define FRAKEY_QUIT 65307
+#  define FRAKEY_P 'p'
+#  define FRAKEY_O 'o'
+#  define FRAKEY_W 'w'
+#  define FRAKEY_S 's'
+#  define FRAKEY_A 'a'
+#  define FRAKEY_D 'd'
+#  define FRAKEY_I 'i'
+#  define FRAKEY_MIN '-'
+#  define FRAKEY_EQU '='
+#  define FRAKEY_SCROLLUP 4
+#  define FRAKEY_SCROLLDOWN 5
+#  define FRAKEY_UP 65362
+#  define FRAKEY_DO 65364
+#  define FRAKEY_SPACE ' '
+
+#  define F_T long double
+#  define F_COO t_cool
+#  define F_LG log2l
+#  define F_NEXT nextafterl
+
 # else
-# include <SDL/SDL.h>
-# define BPP 4
-# define DEPTH 32
-# define WIN1 ((SDL_Surface*)fra.win1)
-# define WIN1P ((SDL_Surface*)fra->win1)
+#  include <SDL/SDL.h>
+// #  include <float.h>
+#  define WIN1 ((SDL_Surface*)fra.win1)
+#  define WIN1P ((SDL_Surface*)fra->win1)
+
+#  define FRAKEY_QUIT SDLK_ESCAPE
+#  define FRAKEY_P SDLK_p
+#  define FRAKEY_O SDLK_o
+#  define FRAKEY_W SDLK_w
+#  define FRAKEY_S SDLK_s
+#  define FRAKEY_A SDLK_a
+#  define FRAKEY_D SDLK_d
+#  define FRAKEY_I SDLK_i
+#  define FRAKEY_MIN SDLK_MINUS
+#  define FRAKEY_EQU SDLK_EQUALS
+#  define FRAKEY_SCROLLUP 4
+#  define FRAKEY_SCROLLDOWN 5
+#  define FRAKEY_UP SDLK_UP
+#  define FRAKEY_DO SDLK_DOWN
+#  define FRAKEY_SPACE SDLK_SPACE
+
+#  define F_T long double
+#  define F_COO t_cool
+#  define F_LG log2
+#  define F_NEXT nextafter
+
 # endif
 
 #define PEACE(A1, A2) A1 A2; (void)A2
@@ -42,7 +84,8 @@
 # define NUMTHREAD 8
 
 /* # define WINY (128. * 4.) */
-# define WINY 600.
+// # define WINY 600.
+# define WINY 100. * 5.
 
 # define WIN_Y (int)(WINY)
 # define WIN_X (int)(WINY * 1.0)
@@ -50,7 +93,7 @@
 # define DBG (0)
 
 # define XYSPEEDBASE 0.005
-# define ZOOMSPEEDBASE 1.005
+# define ZOOMSPEEDBASE 1.5
 
 # define STARTCAMX2 -1.0
 # define STARTCAMY2 1.0
@@ -75,22 +118,6 @@
 /* # define F_LG log2 */
 
 
-# define F_T long double
-# define F_COO t_cool
-# define F_LG log2l
-# define F_NEXT nextafterl
-
-# define KEYQUI 65307
-# define KEYMFW 65362
-# define KEYMBW 65364
-# define KEYMLE 65361
-# define KEYMRI 65363
-# define KEYMUP 32
-# define KEYMDO b
-# define KEYTRI d
-# define KEYTLE a
-# define KEYTUP 65362
-# define KEYTDO 65364
 
 #define NLOOP (int)(70. * fra.loop_coef * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
 #define STOPCOND(ARG) (ARG > 100.)

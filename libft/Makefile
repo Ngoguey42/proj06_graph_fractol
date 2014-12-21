@@ -18,8 +18,8 @@ SRCPATH = srcs
 PTFSRCPATH = $(SRCPATH)/printf
 OBJPATH = obj
 
-# CC = /bin/i686-w64-mingw32-gcc.exe
-CC = gcc
+CC = /bin/i686-w64-mingw32-gcc.exe
+# CC = gcc
 BASEFLAGS = -Wall -Wextra
 CFLAGS = $(BASEFLAGS) -Werror -O2
 DEBUGFLAGS = $(BASEFLAGS) -g

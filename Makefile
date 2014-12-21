@@ -28,21 +28,21 @@ INCLUDE = -I ./
 # MLX DRAWTYPE
 # CUDAFILES = draw_mandelbrot_cuda.cu
 # DRAWFILES = 
-DRAWFILES = draw_mandelbrot_async.c draw_julia_async.c
-# DRAWFILES = draw_mandelbrot.c
+# DRAWFILES = draw_mandelbrot_async.c draw_julia_async.c
+DRAWFILES = draw_mandelbrot.c draw_julia.c
 
-# MLX
-CC = gcc
 # CC = /usr/local/cuda/bin/nvcc
-GRAPHLIB = -L/usr/X11/lib -lmlx -lXext -lX11
-GRAPHINC =
-SPECIALFILES = com_mlx.c pause_mlx.c putpix_mlx.c
+# MLX
+# CC = gcc
+# GRAPHLIB = -L/usr/X11/lib -lmlx -lXext -lX11
+# GRAPHINC =
+# SPECIALFILES = com_mlx.c pause_mlx.c putpix_mlx.c
 
 # SDL
-# CC = /bin/i686-w64-mingw32-gcc.exe
-# GRAPHLIB =  -L/lib/SDL/ -lmingw32 -lSDLmain -lSDL 
-# GRAPHINC = -I /usr/include/
-# SPECIALFILES = com_sdl.c putpix_sdl.c pause_sdl.c
+CC = /bin/i686-w64-mingw32-gcc.exe
+GRAPHLIB = -L/lib/SDL/ -lmingw32 -lSDLmain -lSDL 
+GRAPHINC = -I /usr/include/
+SPECIALFILES = com_sdl.c putpix_sdl.c pause_sdl.c
 
 LIBS = $(LFT) $(GRAPHLIB)
 INCLUDES = $(INCLUDE) $(LFTIPATH) $(GRAPHINC)
