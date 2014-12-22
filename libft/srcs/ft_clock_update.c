@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/12 09:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 07:55:04 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 08:14:47 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** 'ft_clock_updateone'	-updates an-/-add a new- event.
 ** 'ft_clock_loophook'	called in a loop, parses clocks, calls ev->f.
 */
-
 /*
 ** Had to use a silly 'static const char*' because of school's norm.
 */

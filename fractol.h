@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 06:54:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 08:46:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@
 /* # define F_COO t_coof */
 /* # define F_LG log2 */
 
-
+#define DELTA_MVMT_CALLS CLOCKS_PER_SEC / 48
 
 #define NLOOP (int)(70. * fra.loop_coef * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
 #define STOPCOND(ARG) (ARG > 100.)
@@ -180,8 +180,8 @@ int		fra_quit(t_fra fra);
 
 int		fra_set_defpos1(t_fra *fra);
 int		fra_set_defpos2(t_fra *fra);
-int		fra_move(t_fra *fra);
-int		fra_move_void(void *fra);
+/* int		fra_move(t_fra *fra); */
+int		fra_move_void(void *fra, clock_t el);
 int		fra_apply_zoom(t_fra *fra, F_T delta);
 
 int		fra_expose_hook(t_fra *fra);

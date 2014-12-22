@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/12 10:00:22 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:13:00 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 08:14:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@
 **		Downside: 	Loosing 'NumCalls'.
 **						'f' has to handle the elapsed time argument.
 */
-
 
 typedef struct			s_clockev
 {

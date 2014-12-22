@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/22 06:55:56 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/22 08:53:08 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -49,8 +49,7 @@ INCLUDES = $(INCLUDE) $(LFTIPATH) $(GRAPHINC)
 
 
 BASEFLAGS = -Wall -Wextra
-# CFLAGS = $(BASEFLAGS) -Werror -O2
-CFLAGS = 
+CFLAGS = $(BASEFLAGS) -Werror -O2
 DEBUGFLAGS = $(BASEFLAGS) -g
 
 LFTCALL = all
@@ -58,7 +57,7 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c events.c movements.c $(SPECIALFILES)\
+SRCSFILES = main.c events.c events_keys.c movements.c $(SPECIALFILES)\
 read_input.c\
 $(DRAWFILES)\
 debug.c

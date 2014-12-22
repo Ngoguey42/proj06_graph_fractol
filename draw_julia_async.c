@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/15 16:08:34 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 13:25:34 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 08:43:07 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ F_COO				ft_cmult(F_COO c1, F_COO c2)
 
 static int			julia_escapeval(F_COO pix, int max_loop, F_COO c)
 {
-	F_COO	tmp;
+/* 	F_COO	tmp; */
 	int		i;
 
 	i = 0;
