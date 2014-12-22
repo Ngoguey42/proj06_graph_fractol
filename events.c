@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 09:17:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 12:14:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 06:55:17 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ int		fra_expose_hook(t_fra *fra)
 {
 	ft_printf("Expose Hook: %p\n", fra);
     fra_init_surface(*fra);
-	qprintf("salut  0\n");
     fra_set_surface(*fra);
-	qprintf("salut  1\n");
     fra_push_surface(*fra);
-	qprintf("salut  2\n");
 	fra_show_hud(*fra);
-	qprintf("salut  3\n");
 	return (0);
 }
 

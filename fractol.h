@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 12:31:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 06:54:32 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <ft_clock.h>
 // # include <ft_error.h>
 
-// # define USEMLX
+# define USEMLX
 # ifdef USEMLX
 #  include <mlx.h>
 #  define SERV fra.serv
@@ -93,7 +93,7 @@
 # define DBG (0)
 
 # define XYSPEEDBASE 0.005
-# define ZOOMSPEEDBASE 1.5
+# define ZOOMSPEEDBASE 1.005
 
 # define STARTCAMX2 -1.0
 # define STARTCAMY2 1.0

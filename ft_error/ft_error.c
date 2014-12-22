@@ -6,14 +6,14 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:52:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/09 06:21:36 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 06:52:10 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-// #include <errno.h>
+#include <errno.h>
 #include <libft.h>
 
 /*

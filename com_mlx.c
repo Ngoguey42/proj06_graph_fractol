@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 11:31:38 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 06:54:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 int	fra_init_window(t_fra *fra)
 {
-    if (!(reffra.serv = mlx_init()))
+    if (!(SERVP = mlx_init()))
     {
         ft_dprintf(2, "Could not establish connection to X-Window server.\n");
         return (1);
     }
-    ft_dprintf(2, "Established connection to X-Window server. %p\n", reffra);
+    ft_dprintf(2, "Established connection to X-Window server. %p\n", SERVP);
     if (!(fra->win1 = mlx_new_window(SERVP, WIN_X, WIN_Y, "fra")))
     {
         ft_dprintf(2, "Could not create new window.\n");
