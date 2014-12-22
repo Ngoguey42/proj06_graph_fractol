@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/15 16:08:34 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:43:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:22:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			fra_draw_julia(t_fra fra)
 	int			precisionloss;
 	int			i;
 
-	qprintf("%.5Lf %.5Lf\n", fra.m_coo.x, fra.m_coo.y);
+/* 	qprintf("%.5Lf %.5Lf\n", fra.m_coo.x, fra.m_coo.y); */
 	fra.max_loop = NLOOP;
 	precisionloss = (F_NEXT(ABS(fra.coo.x), 1.0) >
 					ABS(fra.coo.x) + ABS(fra.pxin.x));
