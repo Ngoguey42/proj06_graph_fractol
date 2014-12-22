@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/12 10:00:22 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:14:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:24:01 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 /*
 ** 'struct s_clockev':
-**	  f:		function called. 
+**	  f:		function called.
 **	  data:		pointed passed to 'f'.
 **	  dt:		delta time between calls, set by caller (clock tick).
 **	  cl:		calls left, set by caller.

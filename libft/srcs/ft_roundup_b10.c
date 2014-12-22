@@ -6,13 +6,13 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/17 07:54:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/17 09:05:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:31:10 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-char     *ft_roundup_b10(char *str)
+char	*ft_roundup_b10(char *str)
 {
 	int	i;
 
