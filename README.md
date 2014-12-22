@@ -29,6 +29,7 @@ Use:
 make
 ./fractol 
 ```
+![Mandelbrot](http://i.imgur.com/xRBaaFC.png)
 <br><br><br><br><br><br><br><br>
 
 
