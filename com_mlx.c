@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:30:29 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 14:24:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	fra_init_surface(const t_fra *fra)
 
 int fra_set_surface(t_fra *fra)
 {
-	fra->precisionloss = (F_NEXT(ABS(fra->coo.x), 1.0) >
-						ABS(fra->coo.x) + ABS(fra->pxin.x));
+	fra->precisionloss = (
+		fra_get_n_nextval(ABS(fra->coo.x), 16) >
+		ABS(fra->coo.x) + ABS(fra->pxin.x));
 	if (fra->type == 3)
 		fra->max_loop = NLOOP3;
 	else

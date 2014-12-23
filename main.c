@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:49:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 14:43:13 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	fra_set_defpos(t_fra *fra)
 	}
 	else
 	{
-		fra->coo.x = STARTCAMX1;
-		fra->coo.y = STARTCAMY1;
-		fra->zoom = STARTZOOM1;
-		fra->scdt.y = -1. / STARTZOOM1;
-		fra->scdt.x = +1. / STARTZOOM1;
+		fra->coo.x = STARTCAMX2;
+		fra->coo.y = STARTCAMY2;
+		fra->zoom = STARTZOOM2;
+		fra->scdt.y = -1. / STARTZOOM2;
+		fra->scdt.x = +1. / STARTZOOM2;
 	}
 	fra_apply_zoom(fra, 1);
 	return (0);
@@ -60,11 +60,11 @@ int	fra_set_defpos(t_fra *fra)
 
 int	fra_set_cuspos1(t_fra *fra)
 {
-	fra->coo.x = STARTCAMX2;
-	fra->coo.y = STARTCAMY2;
-	fra->zoom = STARTZOOM2;
-	fra->scdt.y = -1. / STARTZOOM2;
-	fra->scdt.x = +1. / STARTZOOM2;
+	fra->coo.x = STARTCAMX1;
+	fra->coo.y = STARTCAMY1;
+	fra->zoom = STARTZOOM1;
+	fra->scdt.y = -1. / STARTZOOM1;
+	fra->scdt.x = +1. / STARTZOOM1;
 	fra_apply_zoom(fra, 1);
 	return (0);
 }
@@ -74,10 +74,13 @@ int	main(int ac, char *av[])
 	t_fra	fra;
 	F_T		sierp_deltas[MAX_SIERP_LOOPS];
 
+	test = 0;
+	testn = 0;
+	testtot = 0;
 /* 	fra_read_input(ac, av, fra, frat); */
 	ft_bzero(&fra, sizeof(t_fra));
 	fra.sierp_deltas = (F_T*)&sierp_deltas;
-	fra_init_env(&fra, 3);
+	fra_init_env(&fra, 2);
 	if (fra_init_window(&fra))
 		return (1);
 	fra_pause(&fra);

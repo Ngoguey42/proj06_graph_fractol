@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:57:12 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 10:18:12 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 15:11:40 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int			fra_apply_zoom(t_fra *fra, F_T delta)
 
 int			fra_move(t_fra *fra, clock_t el)
 {
+/* 	el = DELTA_MVMT_CALLS; */
+	test += el;
+	
+	qprintf("el:%llu  tot:%llu  %3d %d\n", el, test, testn, testtot / testn);
 	if (!(fra->ev[4] == fra->ev[5]))
 	{
 		fra->coo.x += (F_T)el / (F_T)DELTA_MVMT_CALLS * XYSPEEDBASE *

@@ -6,33 +6,20 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:04:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:37:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 14:33:58 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 
-#define _PD1(A) (A < fra->max_loop)
-#define _PD2(A) VCOTOI((A * 7) % 256, 0, 0, 0)
-#define _PD3 VCOTOI(0, 0, 0, 255)
-#define PUTSDST(A, B) fra_puts_dst(&fra->s, (B) * 4, _PD1(A) ? _PD2(A) : _PD3)
+#define PIXCOLOR(A) fra->themes[fra->theme](A, fra->max_loop)
+#define PUTSDST(A, B) fra_puts_dst(&fra->s, (B) * 4, PIXCOLOR(A))
 
 int			fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end)
 {
-	int		j;
-
 	while (sta < end)
 	{
-		if ((j = fra->fra_func(pix, fra)) < 0)
-			fra_puts_dst(&fra->s, sta * 4, VCOTOI(255, 255, 255, 0));
-		else if (j < fra->max_loop)
-			fra_puts_dst(&fra->s, sta * 4, VCOTOI(
-							 55 + (j * 18) % 200,
-							 0,
-							 55 + (-j * 22) % 200,
-							 0));
-		else
-			fra_puts_dst(&fra->s, sta * 4, VCOTOI(0, 0, 0, 0));
+		fra_puts_dst(&fra->s, sta * 4, PIXCOLOR(fra->fra_func(pix, fra)));
 		sta++;
 		pix.x += fra->pxin.x;
 	}
@@ -66,6 +53,20 @@ int			fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end)
 		PUTSDST(pair[1], sta + 3);
 		sta += 2;
 		pix.x += fra->pxin.x * 2;
+	}
+	return (0);
+}
+
+int			fra_draw_row1_preci(const t_fra *fra, F_COO pix, int sta, int end)
+{
+	int		i;
+
+	i = 0;
+	while (sta < end)
+	{
+		pix.x = fra->coo.x + fra->pxin.x * (F_T)i++;
+		fra_puts_dst(&fra->s, sta * 4, PIXCOLOR(fra->fra_func(pix, fra)));
+		sta++;
 	}
 	return (0);
 }

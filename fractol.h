@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:53:25 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 15:01:17 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@
 #define PEACE(A1, A2) A1 A2; (void)A2
 
 
-# define NUMTHREAD 8
+# define NUMTHREAD 1
 
 /* # define WINY (128. * 4.) */
 // # define WINY 600.
@@ -168,6 +168,8 @@ typedef struct	s_fra
 	F_COO		m_coo;
 	int			type;
 	F_T			*sierp_deltas;
+	int			theme;
+	t_co		(*themes[2])(int v, int max);
 }				t_fra;
 
 typedef struct s_frathread
@@ -210,6 +212,7 @@ int		fra_draw_scpart_precisionloss(const t_fra *fra, int part);
 
 int		fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end);
 int		fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end);
+int		fra_draw_row1_preci(const t_fra *fra, F_COO pix, int sta, int end);
 
 int     fra_julia(F_COO pix, const t_fra *fra);
 int     fra_mandelbrot(F_COO pix, const t_fra *fra);
@@ -240,8 +243,15 @@ int     fra_motion_hook(int x, int y, t_fra *fra);
 ** Misc.
 */
 int		fra_show_hud(const t_fra *fra);
+F_T		fra_get_n_nextval(F_T val, int n);
+t_co	fra_theme_0(int c, int max);
+t_co	fra_theme_1(int c, int max);
+
+
 /* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */
 
-
+clock_t	test;
+clock_t	testtot;
+clock_t	testn;
 
 #endif

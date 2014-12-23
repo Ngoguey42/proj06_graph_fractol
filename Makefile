@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/23 12:51:47 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/23 15:00:50 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -30,7 +30,8 @@ INCLUDE = -I ./
 # DRAWFILES = 
 # DRAWFILES = draw_mandelbrot_async.c draw_julia_async.c draw_sierpinski_async.c
 # DRAWFILES = draw_mandelbrot.c draw_julia.c draw_sierpinski.c
-DRAWFILES = draw_screen_async.c
+# DRAWFILES = draw_screen_async.c
+DRAWFILES = draw_screen_sync.c
 
 # CC = /usr/local/cuda/bin/nvcc
 # MLX
@@ -59,7 +60,7 @@ LFTG = g
 LFTGRE = gre
 
 SRCSFILES = main.c events.c events_keys.c movements.c $(SPECIALFILES)\
-read_input.c init_env.c\
+read_input.c init_env.c themes.c \
 $(DRAWFILES)\
 draw_row.c draw_screenpart.c fractal_functions.c\
 debug.c
