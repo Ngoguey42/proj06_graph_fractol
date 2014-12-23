@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/22 08:55:14 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:56:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 12:34:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int fra_puts_fpix(t_fra fra, t_cood coof, t_co c)
 	return (fra_puts_pix(fra, DCOOTOI(coof), c));
 }
 
-int	fra_puts_dst(t_fra fra, int dst, t_co c)
+int	fra_puts_dst(const t_img *s, int dst, t_co c)
 {
 	int				i;
 
 	i = -1;
-	while (++i < (fra.s.bpp / 8))
+	while (++i < (s->bpp / 8))
 	{
-		fra.s.dat[dst + i] = (char)c.s.b;
+		s->dat[dst + i] = (char)c.s.b;
 		c.i >>= 8;
 	}
 	return (0);

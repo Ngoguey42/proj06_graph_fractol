@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 10:56:46 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 12:53:25 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,13 @@
 # define STARTCAMY2 1.0
 # define STARTZOOM2 0.5
 
+# define STARTCAMX3 +0.
+# define STARTCAMY3 +3.
+# define STARTZOOM3 (1./3.)
+
 # define STARTCAMX1 -0xb.dacedfa66f81197p-4
 # define STARTCAMY1 -0x9.34880019ca16063p-5
 # define STARTZOOM1 0xe.00a24e21c9bc912p+47
-
-#define _PD1(A) (A <fra.max_loop)
-#define _PD2(A) VCOTOI((A * 7) % 256, 0, 0, 0)
-#define _PD3 VCOTOI(0, 0, 0, 255)
-#define PUTSDST(A, B) fra_puts_dst(fra, (B) * 4, _PD1(A) ? _PD2(A) : _PD3)
 
 /* x:- y: z: */
 
@@ -124,9 +123,9 @@
 #define DELTA_MVMT_CALLS (clock_t)(CLOCKS_PER_SEC / 48)
 #define MAX_SIERP_LOOPS 10337
 
-#define NLOOP (int)(70. * fra.loop_coef * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
+#define NLOOP (int)(70. * fra->loop_coef * ((fra->zoom > 10) ? F_LG(fra->zoom) / F_LG(10): 1.))
 
-#define NLOOP3 (int)(fra.loop_coef * (F_FLOOR(F_LG(fra.zoom) / F_LG(3)) + 7))
+#define NLOOP3 (int)(fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 7))
 
 #define STOPCOND(ARG) (ARG > 100.)
 
@@ -148,7 +147,6 @@
 **		m_cooscr:	mouse screen coords inside the screen, as integer.
 **		m_coo:		mouse plane coords, for zoom and Julia.
 **		type:		fractal displayed
-**		part:		fraction of the screen drawn my the thread.
 */
 typedef struct	s_fra
 {
@@ -157,6 +155,7 @@ typedef struct	s_fra
 	t_img		s;
 	int			ev[12];
 	int			redraw;
+	int			(*fra_func)(F_COO pix, const struct s_fra* fra);
 	t_clockev	mvmt_clockev;
 	F_COO		coo;
 	F_T			zoom;
@@ -168,51 +167,81 @@ typedef struct	s_fra
 	t_cooi		m_cooscr;
 	F_COO		m_coo;
 	int			type;
-	int			part;
 	F_T			*sierp_deltas;
 }				t_fra;
 
-int		fra_put_pix(t_fra fra, t_cooi coo, t_co c);
-int		fra_put_fpix(t_fra fra, t_cood coof, t_co c);
-int		fra_put_string(t_fra fra, t_cooi coo, t_co c, char *str);
+typedef struct s_frathread
+{
+	const t_fra	*fra;
+	int			part;
+}				t_frathread;
 
+
+/* int		fra_put_pix(t_fra fra, t_cooi coo, t_co c); */
+/* int		fra_put_fpix(t_fra fra, t_cood coof, t_co c); */
+
+
+/*
+** Put pixels.
+*/
+int		fra_put_string(t_fra fra, t_cooi coo, t_co c, char *str);
 int		fra_puts_pix(t_fra fra, t_cooi coo, t_co c);
 int		fra_puts_fpix(t_fra fra, t_cood coof, t_co c);
+int		fra_puts_dst(const t_img *s, int dst, t_co c);
 
-
-int		fra_puts_dst(t_fra fra, int dst, t_co c);
-
-void	fra_pause(t_fra *fra);
-
-int     fra_draw_julia(t_fra fra);
-int     fra_draw_mandelbrot(t_fra fra);
-int     fra_draw_sierpinski(t_fra fra);
-
+/*
+** Graph libs initialisations.
+*/
 int		fra_init_window(t_fra *fra);
-int		fra_init_surface(t_fra fra);
-int 	fra_set_surface(t_fra fra);
-int		fra_push_surface(t_fra fra);
+void	fra_pause(t_fra *fra);
 int		fra_quit(t_fra fra);
 
-int		fra_set_defpos1(t_fra *fra);
-int		fra_set_defpos2(t_fra *fra);
-/* int		fra_move(t_fra *fra); */
+/*
+** Drawing Functions.
+*/
+int		fra_init_surface(const t_fra *fra);
+int 	fra_set_surface(t_fra *fra);
+int		fra_push_surface(const t_fra *fra);
+
+int		fra_draw_screen(const t_fra *fra);
+
+int		fra_draw_scpart(const t_fra *fra, int part);
+int		fra_draw_scpart_precisionloss(const t_fra *fra, int part);
+
+int		fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end);
+int		fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end);
+
+int     fra_julia(F_COO pix, const t_fra *fra);
+int     fra_mandelbrot(F_COO pix, const t_fra *fra);
+int     fra_sierpinski(F_COO pix, const t_fra *fra);
+
+/*
+** Env Modification.
+*/
+void	fra_init_env(t_fra *fra, int type);
+int		fra_set_defpos(t_fra *fra);
+int		fra_set_cuspos1(t_fra *fra);
 int		fra_move_void(void *fra, clock_t el);
 int		fra_apply_zoom(t_fra *fra, F_T delta);
+int		fra_eval_screen_coords(t_fra *fra, int x, int y);
 
+/*
+** Events.
+*/
+int		fra_loop_hook(t_fra *fra);
 int		fra_expose_hook(t_fra *fra);
 int		fra_keydo_hook(int keycode, t_fra *fra);
 int		fra_keyup_hook(int keycode, t_fra *fra);
 int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra);
-/* int		fra_butup_hook(int keycode, int x, int y, t_fra *fra); */
-
 int     fra_motion_hook(int x, int y, t_fra *fra);
-int		fra_mouse_hook(int button,int x,int y,t_fra *fra);
-int		fra_loop_hook(t_fra *fra);
-int		fra_eval_screen_coords(t_fra *fra, int x, int y);
+/* int		fra_mouse_hook(int button,int x,int y,t_fra *fra); */
 
+/*
+** Misc.
+*/
+int		fra_show_hud(const t_fra *fra);
 /* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */
 
-int		fra_show_hud(t_fra fra);
+
 
 #endif
