@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:50:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 10:18:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,26 @@ int	fra_set_defpos2(t_fra *fra)
 	return (0);
 }
 
+void	build_sierp_deltas_tab(t_fra *fra)
+{
+	int			i;
+
+	i = -1;
+	while (++i < MAX_SIERP_LOOPS)
+		fra->sierp_deltas[i] = (F_T)(3.L / powl(3.L, (long double)i));
+}
+
 int	main(int ac, char *av[])
 {
 	t_fra	reffra;
+	F_T		sierp_deltas[MAX_SIERP_LOOPS];
 
 	ft_bzero(&reffra, sizeof(t_fra));
-	reffra.type = 1;
+	reffra.type = 3;
 	reffra.loop_coef = 1.;
+	reffra.sierp_deltas = (F_T*)&sierp_deltas;
+	if (reffra.type == 3)
+		build_sierp_deltas_tab(&reffra);
 	reffra.mvmt_clockev.f = &fra_move_void;
 	reffra.mvmt_clockev.data = &reffra;
 	reffra.mvmt_clockev.dt = DELTA_MVMT_CALLS;

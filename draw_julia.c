@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 07:55:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 08:20:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 09:41:41 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ F_COO				ft_cmult(F_COO c1, F_COO c2)
 
 static int			julia_escapeval(F_COO pix, int max_loop, F_COO c)
 {
-	F_COO	tmp;
+/* 	F_COO	tmp; */
 	int		i;
 
 	i = 0;
@@ -83,14 +83,15 @@ static int	fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 		sta += 2;
 		pix.x += fra.pxin.x * 2;
 	}
+	return (1);
 }
 
 int			fra_draw_julia(t_fra fra)
 {
 	int			i;
-	int			j;
+/* 	int			j; */
 	F_COO		pix;
-	F_T			test;
+/* 	F_T			test; */
 
     fra.max_loop = NLOOP;
     fra.precisionloss = (F_NEXT(ABS(fra.coo.x), 1.0) >

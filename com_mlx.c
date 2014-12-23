@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 09:01:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 09:29:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int fra_set_surface(t_fra fra)
 		fra_draw_julia(fra);
 	else if (fra.type == 2)
 		fra_draw_mandelbrot(fra);
+	else if (fra.type == 3)
+		fra_draw_sierpinski(fra);
 	return (0);
 }
 

@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_mandelbrot.c                                  :+:      :+:    :+:   */
+/*   draw_sierpinski.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/11 07:55:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 09:40:56 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/12/23 09:28:28 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/12/23 09:41:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 #include <stdlib.h>
 
-int			julia_zero_escape_val(F_COO pix, int max_loop)
+int			sierpinski_state(F_COO pix, t_fra fra)
 {
-	F_COO	zero;
-	F_COO	tmp;
 	int		i;
+	F_T		tmp;
 
-	ft_bzero(&zero, sizeof(F_COO));
 	i = 0;
-	while (i < max_loop)
+	while (i++ <= fra.max_loop)
 	{
-		i++;
-		tmp = zero;
-		zero.y = 2 * tmp.x * tmp.y + pix.y;
-		zero.x = tmp.x * tmp.x - tmp.y * tmp.y + pix.x;
-		if (STOPCOND(zero.x) || STOPCOND(zero.y))
+		if (pix.x < 0 || pix.x > 3)
+			return (fra.max_loop);
+		tmp = F_MOD(pix.x / fra.sierp_deltas[i], 3);
+		if (tmp > 1 || tmp < 2)
 			break ;
 	}
 	return (i);
 }
 
-int			fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
+static int		fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 {
 	int		j;
 
@@ -69,7 +66,7 @@ int			fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 		
  	while (sta < end) 
  	{			 
- 		if ((j = julia_zero_escape_val(pix, fra.max_loop)) < fra.max_loop) 
+ 		if ((j = sierpinski_state(pix, fra)) < fra.max_loop) 
  			fra_puts_dst(fra, sta * 4, VCOTOI((j * 7) % 256, 0, 0, 0)); 
  		else 
  			fra_puts_dst(fra, sta * 4, VCOTOI(0, 0, 0, 0)); 
@@ -79,7 +76,7 @@ int			fra_draw_line(t_fra fra, F_COO pix, int sta, int end)
 	return (1);
 }
 
-int			fra_draw_mandelbrot(t_fra fra)
+int			fra_draw_sierpinski(t_fra fra)
 {
 	int			i;
 /* 	int			j; */
@@ -87,7 +84,8 @@ int			fra_draw_mandelbrot(t_fra fra)
 /* 	F_T			test; */
 	// qprintf("salut  00\n");
 	
-    fra.max_loop = NLOOP;
+	qprintf("drawing");
+    fra.max_loop = 4;
     fra.precisionloss = (F_NEXT(ABS(fra.coo.x), 1.0) >
 					 ABS(fra.coo.x) + ABS(fra.pxin.x));
 	pix = fra.coo;

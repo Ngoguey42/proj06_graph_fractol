@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:46:12 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/23 10:56:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@
 #  define F_T long double
 #  define F_COO t_cool
 #  define F_LG log2l
+#  define F_MOD fmodl
+#  define F_FLOOR floorl
 #  define F_NEXT nextafterl
+
+
 
 # else
 #  include <SDL/SDL.h>
@@ -85,7 +89,7 @@
 
 /* # define WINY (128. * 4.) */
 // # define WINY 600.
-# define WINY 100. * 5.
+# define WINY (100. * 5.)
 
 # define WIN_Y (int)(WINY)
 # define WIN_X (int)(WINY * 1.0)
@@ -117,9 +121,13 @@
 /* # define F_COO t_coof */
 /* # define F_LG log2 */
 
-#define DELTA_MVMT_CALLS CLOCKS_PER_SEC / 48
+#define DELTA_MVMT_CALLS (clock_t)(CLOCKS_PER_SEC / 48)
+#define MAX_SIERP_LOOPS 10337
 
 #define NLOOP (int)(70. * fra.loop_coef * ((fra.zoom > 10) ? F_LG(fra.zoom) / F_LG(10): 1.))
+
+#define NLOOP3 (int)(fra.loop_coef * (F_FLOOR(F_LG(fra.zoom) / F_LG(3)) + 7))
+
 #define STOPCOND(ARG) (ARG > 100.)
 
 /*
@@ -128,13 +136,19 @@
 **		win1:		mlx & sdl window pointer.
 **		s:			screen img struct. (see libft's ft_math.h)
 **		ev:			events states for mouse/keyboard key press.
+**		redraw:		redraw event.
+**		mvmt_clockev:	Movements clockevent for my ft_clock lib.
 **		coo:		top left point's coordinates.
 **		zoom:		zoom's value. @zoom==1 == no zoom;
 **		scdt:		screen delta. @zoom==1 == .x==2 .y==2
 **		pxin:		pixel increment @zoom==1 == .x==2/WIN_X .y==2/WIN_Y
+**		loop_coef:	loop coef applied on every fractals, to change precision.
+**		max_loop:	number of loops.
+**		precisionloss:	float critical precision loss status.
 **		m_cooscr:	mouse screen coords inside the screen, as integer.
+**		m_coo:		mouse plane coords, for zoom and Julia.
 **		type:		fractal displayed
-**		j:			Julia's datas.
+**		part:		fraction of the screen drawn my the thread.
 */
 typedef struct	s_fra
 {
@@ -142,19 +156,20 @@ typedef struct	s_fra
 	void		*win1;
 	t_img		s;
 	int			ev[12];
-	t_clockev	mvmt_clockev;
 	int			redraw;
+	t_clockev	mvmt_clockev;
 	F_COO		coo;
 	F_T			zoom;
-	F_T			loop_coef;
 	F_COO		scdt;
 	F_COO		pxin;
+	F_T			loop_coef;
 	int			max_loop;
 	int			precisionloss;
 	t_cooi		m_cooscr;
 	F_COO		m_coo;
 	int			type;
 	int			part;
+	F_T			*sierp_deltas;
 }				t_fra;
 
 int		fra_put_pix(t_fra fra, t_cooi coo, t_co c);
@@ -171,6 +186,7 @@ void	fra_pause(t_fra *fra);
 
 int     fra_draw_julia(t_fra fra);
 int     fra_draw_mandelbrot(t_fra fra);
+int     fra_draw_sierpinski(t_fra fra);
 
 int		fra_init_window(t_fra *fra);
 int		fra_init_surface(t_fra fra);
