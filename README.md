@@ -8,7 +8,7 @@ Goals:
 - [ ] Read arguments to choose wich fractal to show.
 - [X] Mandelbrot set. Zoom with mouse scroll.
 - [X] Julia sets. Zoom with mouse scroll. Mouse position defines wich Julia to show.
-- [ ] One more fractal. Zoom with mouse scroll.
+- [X] One more fractal. Zoom with mouse scroll.
 
 Recommended bonuses:
 - [X] Movements.
@@ -18,6 +18,7 @@ Recommended bonuses:
 - [ ] Open two frames for two fractals, at the same time.
 
 My additions:
+* [X] Sierpinsky carpet, as a third fractal.
 - [X] "+/-" keys to change the number of loops.
 - [X] Time dependant movements, instead of CPU dependant. ([events.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/events.c)) ([libft/srcs/ft_clock[...].c](https://github.com/Ngoguey42/proj06_graph_fractol/tree/master/libft/srcs))
 - [X] Multi thread rendering. ([draw_julia_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_julia_async.c)) ([draw_mandelbrot_async.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/draw_mandelbrot_async.c))
