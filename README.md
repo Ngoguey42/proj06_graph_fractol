@@ -5,14 +5,14 @@
 --------  -----------------------
 Goals:
 - [X] Use "minilibX", school's truncated version of "X11".
-- [ ] Read arguments to choose wich fractal to show.
+- [X] Read arguments to choose wich fractal to show.
 - [X] Mandelbrot set. Zoom with mouse scroll.
 - [X] Julia sets. Zoom with mouse scroll. Mouse position defines wich Julia to show.
 - [X] One more fractal. Zoom with mouse scroll.
 
 Recommended bonuses:
 - [X] Movements.
-- [ ] Change colors on key press.
+- [X] Change colors on key press.
 - [ ] More fractals.
 - [ ] 3d representation.
 - [ ] Open two frames for two fractals, at the same time.
@@ -25,10 +25,10 @@ My additions:
 - [ ] CUDA rendering. (failed at compilation) ([draw_mandelbrot_cuda.cu](/draw_mandelbrot_cuda.cu))
 - [X] SDL compatibility. (dirty)
 
-Use:
+Usage:
 ```sh
 make
-./fractol 
+./fractol JMS
 ```
 ![Mandelbrot](http://i.imgur.com/xRBaaFC.png)
 <br><br><br><br><br><br><br><br>

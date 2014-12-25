@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:57:12 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 09:44:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 11:10:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,14 @@ int			fra_apply_zoom(t_fra *fra, F_T delta)
 
 int			fra_move(t_fra *fra, clock_t el)
 {
-/* 	el = DELTA_MVMT_CALLS; */
-	test += el;
-
-	qprintf("Movement Required: el=%llu\n", el);
-	
-/* 	qprintf("el:%llu  tot:%llu  %3d %d\n", el, test, testn, testtot / testn); */
 	if (!(fra->ev[4] == fra->ev[5]))
 	{
-		fra->coo.x += (F_T)el / (F_T)DELTA_MVMT_CALLS / NTHREADSPEEDFACTOR * XYSPEEDBASE *
-			(1 - fra->ev[4] * 2) / fra->zoom;
+		fra->coo.x += (F_T)el / SPEEDFACT * (1 - fra->ev[4] * 2) / fra->zoom;
 		fra->redraw = 1;
 	}
 	if (!(fra->ev[0] == fra->ev[1]))
 	{
-		fra->coo.y += (F_T)el / (F_T)DELTA_MVMT_CALLS /  NTHREADSPEEDFACTOR * XYSPEEDBASE *
-			(1 - fra->ev[1] * 2) / fra->zoom;
+		fra->coo.y += (F_T)el / SPEEDFACT * (1 - fra->ev[1] * 2) / fra->zoom;
 		fra->redraw = 1;
 	}
 	return (0);

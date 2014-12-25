@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 11:37:07 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 11:58:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:35:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		*threadsplit(void *threadpv)
 
 int				fra_draw_screen(const t_fra *fra)
 {
-	pthread_t   tid[NUMTHREAD];
+	pthread_t	tid[NUMTHREAD];
 	t_frathread	threads[NUMTHREAD];
 	int			i;
 
@@ -41,5 +41,5 @@ int				fra_draw_screen(const t_fra *fra)
 	i = 0;
 	while (i < NUMTHREAD)
 		pthread_join(tid[i++], NULL);
-	return (0);	
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 10:21:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 11:40:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@
 # include <libft.h>
 # include <ft_math.h>
 # include <ft_clock.h>
-// # include <ft_error.h>
+
+/*
+** My SDL implementation's main purpose, was to be able to run fractol on
+**	MinGW at home. That's why there's so few optimisation with it.
+*/
 
 # define USEMLX
 # ifdef USEMLX
 #  include <mlx.h>
+
 #  define SERV fra.serv
 #  define WIN1 fra.win1
 #  define SERVP fra->serv
@@ -53,11 +58,9 @@
 #  define F_FLOOR floorl
 #  define F_NEXT nextafterl
 
-
-
 # else
 #  include <SDL/SDL.h>
-// #  include <float.h>
+
 #  define WIN1 ((SDL_Surface*)fra.win1)
 #  define WIN1P ((SDL_Surface*)fra->win1)
 
@@ -82,34 +85,49 @@
 #  define F_T long double
 #  define F_COO t_cool
 #  define F_LG log2
+#  define F_MOD fmod
+#  define F_FLOOR floor
 #  define F_NEXT nextafter
 
 # endif
 
-#define PEACE(A1, A2) A1 A2; (void)A2
+# define NUMTHEMES 3
+# define MAX_SIERP_LOOPS 500
+
+# include <fractol_structs.h>
+
+# define XYSPEEDBASE 0.03
+# define ZOOMSPEEDBASE 1.005
+# define DELTA_MVMT_CALLS (clock_t)(CLOCKS_PER_SEC / 48)
+
+/*
+** NUMTHREAD defined at compilation.
+** SPEEDFACT is a quick fix to the clock() return being different
+** on multi threading than on single threading.
+*/
 
 # ifndef NUMTHREAD
 #  define NUMTHREAD 1
 # endif
 
 # if NUMTHREAD <= 1
-#  define NTHREADSPEEDFACTOR 1
+#  define SPEEDFACT (F_T)DELTA_MVMT_CALLS / 1. * XYSPEEDBASE
+# elif NUMTHREAD > 4
+#  define SPEEDFACT (F_T)DELTA_MVMT_CALLS / 4. * XYSPEEDBASE
 # else
-#  define NTHREADSPEEDFACTOR (NUMTHREAD / 2)
+#  define SPEEDFACT (F_T)DELTA_MVMT_CALLS / ((F_T)NUMTHREAD / 2.) * XYSPEEDBASE
 # endif
-/* # define WINY (128. * 4.) */
-// # define WINY 600.
-# define WINY (100. * 5.)
+
+/*
+** Change WINY to change Frame size.
+*/
+
+# define WINY (750.)
 
 # define WIN_Y (int)(WINY)
 # define WIN_X (int)(WINY * 1.0)
 
 # define DBG (0)
-
-# define XYSPEEDBASE 0.03
-# define ZOOMSPEEDBASE 1.005
-
-# define NUMTHEMES 3
 
 # define STARTCAMX2 -1.0
 # define STARTCAMY2 1.0
@@ -123,77 +141,14 @@
 # define STARTCAMY1 -0x9.34880019ca16063p-5
 # define STARTZOOM1 0xe.00a24e21c9bc912p+47
 
-/* x:- y: z: */
+# define NLOOPBIS(Z) ((Z > 10) ? F_LG(Z) / F_LG(10): 1.)
+# define NLOOP (int)(70. * fra->loop_coef * NLOOPBIS(fra->zoom))
 
-/* # define F_T double */
-/* # define F_COO t_cood */
+# define NLOOP2 (int)(140. * fra->loop_coef * NLOOPBIS(fra->zoom))
 
-/* # define F_T float */
-/* # define F_COO t_coof */
-/* # define F_LG log2 */
+# define NLOOP3 (int)(fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 6))
 
-#define DELTA_MVMT_CALLS (clock_t)(CLOCKS_PER_SEC / 48)
-#define MAX_SIERP_LOOPS 10337
-
-#define NLOOP (int)(70. * fra->loop_coef * ((fra->zoom > 10) ? F_LG(fra->zoom) / F_LG(10): 1.))
-
-#define NLOOP3 (int)(fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 6))
-
-#define STOPCOND(ARG) (ARG > 100.)
-
-/*
-** 'struct s_fra':
-**		serv:		mlx X11 serv.
-**		win1:		mlx & sdl window pointer.
-**		s:			screen img struct. (see libft's ft_math.h)
-**		ev:			events states for mouse/keyboard key press.
-**		redraw:		redraw event.
-**		mvmt_clockev:	Movements clockevent for my ft_clock lib.
-**		coo:		top left point's coordinates.
-**		zoom:		zoom's value. @zoom==1 == no zoom;
-**		scdt:		screen delta. @zoom==1 == .x==2 .y==2
-**		pxin:		pixel increment @zoom==1 == .x==2/WIN_X .y==2/WIN_Y
-**		loop_coef:	loop coef applied on every fractals, to change precision.
-**		max_loop:	number of loops.
-**		precisionloss:	float critical precision loss status.
-**		m_cooscr:	mouse screen coords inside the screen, as integer.
-**		m_coo:		mouse plane coords, for zoom and Julia.
-**		type:		fractal displayed
-*/
-typedef struct	s_fra
-{
-	void		*serv;
-	void		*win1;
-	t_img		s;
-	int			ev[12];
-	int			redraw;
-	int			(*fra_func)(F_COO pix, const struct s_fra* fra);
-	t_clockev	mvmt_clockev;
-	F_COO		coo;
-	F_T			zoom;
-	F_COO		scdt;
-	F_COO		pxin;
-	F_T			loop_coef;
-	int			max_loop;
-	int			precisionloss;
-	t_cooi		m_cooscr;
-	F_COO		m_coo;
-	int			type;
-	F_T			*sierp_deltas;
-	int			theme;
-	t_co		(*themes[NUMTHEMES])(int v, int max);
-}				t_fra;
-
-typedef struct s_frathread
-{
-	const t_fra	*fra;
-	int			part;
-}				t_frathread;
-
-
-/* int		fra_put_pix(t_fra fra, t_cooi coo, t_co c); */
-/* int		fra_put_fpix(t_fra fra, t_cood coof, t_co c); */
-
+# define STOPCOND(ARG) (ABS(ARG) > 100.)
 
 /*
 ** Put pixels.
@@ -214,7 +169,7 @@ int		fra_quit(t_fra fra);
 ** Drawing Functions.
 */
 int		fra_init_surface(const t_fra *fra);
-int 	fra_set_surface(t_fra *fra);
+int		fra_set_surface(t_fra *fra);
 int		fra_push_surface(const t_fra *fra);
 
 int		fra_draw_screen(const t_fra *fra);
@@ -226,9 +181,9 @@ int		fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end);
 int		fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end);
 int		fra_draw_row1_preci(const t_fra *fra, F_COO pix, int sta, int end);
 
-int     fra_julia(F_COO pix, const t_fra *fra);
-int     fra_mandelbrot(F_COO pix, const t_fra *fra);
-int     fra_sierpinski(F_COO pix, const t_fra *fra);
+int		fra_julia(F_COO pix, const t_fra *fra);
+int		fra_mandelbrot(F_COO pix, const t_fra *fra);
+int		fra_sierpinski(F_COO pix, const t_fra *fra);
 
 /*
 ** Env Modification.
@@ -249,8 +204,7 @@ int		fra_expose_hook(t_fra *fra);
 int		fra_keydo_hook(int keycode, t_fra *fra);
 int		fra_keyup_hook(int keycode, t_fra *fra);
 int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra);
-int     fra_motion_hook(int x, int y, t_fra *fra);
-/* int		fra_mouse_hook(int button,int x,int y,t_fra *fra); */
+int		fra_motion_hook(int x, int y, t_fra *fra);
 
 /*
 ** Misc.
@@ -260,12 +214,5 @@ F_T		fra_get_n_nextval(F_T val, int n);
 t_co	fra_theme_0(int c, int max);
 t_co	fra_theme_1(int c, int max);
 t_co	fra_theme_2(int c, int max);
-
-
-/* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */
-
-clock_t	test;
-clock_t	testtot;
-clock_t	testn;
 
 #endif

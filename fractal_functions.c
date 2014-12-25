@@ -6,14 +6,13 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:13:24 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 10:01:46 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 11:06:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 
-/* int		fra_sierpinski(F_COO pix, vint max_loop, F_T *deltas) */
-int		fra_sierpinski(F_COO pix, const t_fra *fra)
+int				fra_sierpinski(F_COO pix, const t_fra *fra)
 {
 	int	i;
 	F_T	tmp;
@@ -45,22 +44,14 @@ static F_COO	ft_cmult(F_COO c1, F_COO c2)
 	return (c1);
 }
 
-/* int			fra_julia(F_COO pix, int max_loop, F_COO c) */
-int			fra_julia(F_COO pix, const t_fra *fra)
+int				fra_julia(F_COO pix, const t_fra *fra)
 {
-/*	F_COO	tmp; */
-	int	 i;
+	int		i;
 
 	i = 0;
 	while (i < fra->max_loop)
 	{
 		i++;
-/*		tmp = pix; */
-/*		pix.y = 2 * tmp.x * tmp.y + c.y; */
-/*		pix.x = tmp.x * tmp.x - tmp.y * tmp.y + c.x; */
-/*		pix = ft_cmult(ft_cmult(pix, pix), ft_cmult(ft_cmult(pix, pix), ft_cmult(p\
-		ix, pix))); */
-/*		pix = ft_cmult(ft_cmult(pix, pix), pix); */
 		pix = ft_cmult(pix, pix);
 		pix.x += fra->m_coo.x;
 		pix.y += fra->m_coo.y;
@@ -70,12 +61,11 @@ int			fra_julia(F_COO pix, const t_fra *fra)
 	return (i);
 }
 
-int		 fra_mandelbrot(F_COO pix, const t_fra *fra)
-/* int		 fra_mandelbrot(F_COO c, int max_loop) */
+int				fra_mandelbrot(F_COO pix, const t_fra *fra)
 {
 	F_COO	zero;
 	F_COO	tmp;
-	int	 i;
+	int		i;
 
 	ft_bzero(&zero, sizeof(F_COO));
 	i = 0;

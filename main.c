@@ -6,21 +6,21 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 10:12:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 11:40:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <fractol.h>
 
-int	fra_show_hud(const t_fra *fra)
+int			fra_show_hud(const t_fra *fra)
 {
 	char	buffer[80];
 	t_co	co;
 	t_cooi	cooi;
 
 	co = VCOTOI(255, 255, 255, 0);
-	cooi = ACOOTOI(WIN_X - 120, WIN_Y - 85, 0);
+	cooi = ACOOTOI(WIN_X - 120, WIN_Y - 15 * 8, 0);
 	ft_sprintf(buffer, "%13s %s", "Movements:", "WASD");
 	fra_put_string(*fra, ICOOADDY(cooi, 0), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Zoom:", "Scroll");
@@ -31,34 +31,14 @@ int	fra_show_hud(const t_fra *fra)
 	fra_put_string(*fra, ICOOADDY(cooi, 45), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Num-loop coef:", "-+");
 	fra_put_string(*fra, ICOOADDY(cooi, 60), co, buffer);
-/* 	ft_sprintf(buffer, "        (%d loops)", NLOOP); */
-/* 	fra_put_string(*fra, ICOOADDY(cooi, 75), co, buffer); */
+	ft_sprintf(buffer, "        (%d loops)", fra->max_loop);
+	fra_put_string(*fra, ICOOADDY(cooi, 75), co, buffer);
+	ft_sprintf(buffer, "%13s %s", "Color/Fractal:", "CV");
+	fra_put_string(*fra, ICOOADDY(cooi, 90), co, buffer);
 	return (0);
 }
 
-int	fra_set_defpos(t_fra *fra)
-{
-	if (fra->type == 3)
-	{
-		fra->coo.x = STARTCAMX3;
-		fra->coo.y = STARTCAMY3;
-		fra->zoom = STARTZOOM3;
-		fra->scdt.y = -1. / STARTZOOM3;
-		fra->scdt.x = +1. / STARTZOOM3;
-	}
-	else
-	{
-		fra->coo.x = STARTCAMX2;
-		fra->coo.y = STARTCAMY2;
-		fra->zoom = STARTZOOM2;
-		fra->scdt.y = -1. / STARTZOOM2;
-		fra->scdt.x = +1. / STARTZOOM2;
-	}
-	fra_apply_zoom(fra, 1);
-	return (0);
-}
-
-int	fra_set_cuspos1(t_fra *fra)
+int			fra_set_cuspos1(t_fra *fra)
 {
 	fra->coo.x = STARTCAMX1;
 	fra->coo.y = STARTCAMY1;
@@ -69,18 +49,32 @@ int	fra_set_cuspos1(t_fra *fra)
 	return (0);
 }
 
-int	main(int ac, char *av[])
+static int	readinput(int ac, char *av[])
+{
+	if (ac < 2 || av[1][0] == '\0' || av[1][1] != '\0')
+		(void)ac;
+	else if (*av[1] == 'J')
+		return (1);
+	else if (*av[1] == 'M')
+		return (2);
+	else if (*av[1] == 'S')
+		return (3);
+	ft_printf("Invalid Arguments, Use:\n\t./fractol J/M/S\n");
+	return (-1);
+}
+
+int			main(int ac, char *av[])
 {
 	t_fra	fra;
 	F_T		sierp_deltas[MAX_SIERP_LOOPS];
+	int		input;
 
-	test = 0;
-	testn = 0;
-	testtot = 0;
-/* 	fra_read_input(ac, av, fra, frat); */
+	input = readinput(ac, av);
+	if (input < 1)
+		return (0);
 	ft_bzero(&fra, sizeof(t_fra));
 	fra.sierp_deltas = (F_T*)&sierp_deltas;
-	fra_init_env(&fra, 1);
+	fra_init_env(&fra, input);
 	if (fra_init_window(&fra))
 		return (1);
 	fra_pause(&fra);

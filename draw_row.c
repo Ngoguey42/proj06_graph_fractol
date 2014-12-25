@@ -6,13 +6,13 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:04:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:33:58 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:41:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 
-#define PIXCOLOR(A) fra->themes[fra->theme](A, fra->max_loop)
+#define PIXCOLOR(A) fra->themes[fra->theme]((A), fra->max_loop)
 #define PUTSDST(A, B) fra_puts_dst(&fra->s, (B) * 4, PIXCOLOR(A))
 
 int			fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end)
@@ -28,9 +28,8 @@ int			fra_draw_row1(const t_fra *fra, F_COO pix, int sta, int end)
 
 int			fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end)
 {
-	int	 j;
-	int	 pair[2];
-	
+	int		pair[2];
+
 	pair[0] = fra->fra_func(pix, fra);
 	PUTSDST(pair[0], sta);
 	pair[1] = fra->fra_func(
@@ -43,10 +42,7 @@ int			fra_draw_row2(const t_fra *fra, F_COO pix, int sta, int end)
 		if (pair[0] == pair[1])
 			PUTSDST(pair[0], sta);
 		else
-		{
-			j = fra->fra_func(pix, fra);
-			PUTSDST(j, sta);
-		}
+			PUTSDST(fra->fra_func(pix, fra), sta);
 		pair[0] = pair[1];
 		pair[1] = fra->fra_func(
 			ACOOTOL(pix.x + fra->pxin.x * 3, pix.y, 0), fra);
