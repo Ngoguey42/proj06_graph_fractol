@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:13:24 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:39:10 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:01:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int		fra_sierpinski(F_COO pix, const t_fra *fra)
 	i = 0;
 	if (pix.x < 0 || pix.x > 3 || pix.y < 0 || pix.y > 3)
 		return (-1);
-	while (i++ <= fra->max_loop)
+	while (i <= fra->max_loop)
 	{
+		i++;
 		tmp = F_MOD(pix.x / fra->sierp_deltas[i], 3);
 		if (tmp > 1 && tmp < 2)
 		{

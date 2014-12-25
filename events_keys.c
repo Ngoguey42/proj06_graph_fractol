@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/22 08:51:12 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 12:53:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:20:53 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ int		fra_keydo_hook(int keycode, t_fra *fra)
 {
 	if (keycode == FRAKEY_I)
 		fra_show_hud(fra);
-	else if (keycode == FRAKEY_MIN)
+	else if (keycode == FRAKEY_MIN && (fra->redraw = 1))
 	{
 		fra->loop_coef -= fra->loop_coef < 0.15 ? 0. : 0.01;
-		fra->redraw = 1;
 		fra_show_hud(fra);
 	}
-	else if (keycode == FRAKEY_EQU)
+	else if (keycode == FRAKEY_EQU && (fra->redraw = 1))
 	{
 		fra->loop_coef += fra->loop_coef > 5. ? 0. : 0.01;
-		fra->redraw = 1;
 		fra_show_hud(fra);
 	}
+	else if (keycode == FRAKEY_C && (fra->redraw = 1))
+		fra->theme = (fra->theme + 1) % NUMTHEMES;
+	else if (keycode == FRAKEY_V && (fra->redraw = 1))
+		fra_init_pertype(fra, (fra->theme) % 3 + 1);
 	else if (keycode == FRAKEY_W)
 		fra->ev[0] = 1;
 	else if (keycode == FRAKEY_S)
@@ -72,5 +74,6 @@ int		fra_butdo_hook(int keycode, int x, int y, t_fra *fra)
 int		fra_motion_hook(int x, int y, t_fra *fra)
 {
 	fra->m_cooscr = ACOOTOI(x, y, 0);
+	fra->redraw = 1;
 	return (0);
 }

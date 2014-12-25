@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/23 15:00:50 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/25 09:40:30 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -26,12 +26,14 @@ SRCPATH = .
 INCLUDE = -I ./
 
 # MLX DRAWTYPE
-# CUDAFILES = draw_mandelbrot_cuda.cu
-# DRAWFILES = 
-# DRAWFILES = draw_mandelbrot_async.c draw_julia_async.c draw_sierpinski_async.c
-# DRAWFILES = draw_mandelbrot.c draw_julia.c draw_sierpinski.c
-# DRAWFILES = draw_screen_async.c
-DRAWFILES = draw_screen_sync.c
+
+THREADFLAGS = -D NUMTHREAD=1
+DRAWFILES = draw_screen_async.c
+
+# THREADFLAGS = 
+# DRAWFILES = draw_screen_sync.c
+
+
 
 # CC = /usr/local/cuda/bin/nvcc
 # MLX
@@ -51,8 +53,8 @@ INCLUDES = $(INCLUDE) $(LFTIPATH) $(GRAPHINC)
 
 
 BASEFLAGS = -Wall -Wextra
-CFLAGS = $(BASEFLAGS) -Werror -O2
-DEBUGFLAGS = $(BASEFLAGS) -g
+CFLAGS = $(BASEFLAGS) $(THREADFLAGS) -Werror -O2
+DEBUGFLAGS = $(BASEFLAGS) $(THREADFLAGS) -g
 
 LFTCALL = all
 LFTRE = re

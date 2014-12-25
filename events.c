@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 09:17:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:43:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 09:44:25 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,17 @@ int	fra_loop_hook(t_fra *fra)
 	ft_clock_loophook();
 	if (fra->redraw)
 	{
+
+
 		testtot += test;
 		testn++;
+
+		qprintf("Drawing #%-3d Required: tot-el=%llu      avg-el = %llu \n\n",
+				testn, test, testtot / testn);
 		test = 0;
-
-		qprintf("\tdraw\n");
-
-		fra->redraw = 0;
 		if (fra->type == 1)
 			fra_eval_screen_coords(fra, fra->m_cooscr.x, fra->m_cooscr.y);
+		fra->redraw = 0;
 		fra_init_surface(fra);
 		fra_set_surface(fra);
 		fra_push_surface(fra);

@@ -6,12 +6,15 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:24:11 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:24:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
 #include <stdlib.h>
+
+
+
 
 int	fra_init_window(t_fra *fra)
 {
@@ -53,10 +56,18 @@ int fra_set_surface(t_fra *fra)
 	fra->precisionloss = (
 		fra_get_n_nextval(ABS(fra->coo.x), 16) >
 		ABS(fra->coo.x) + ABS(fra->pxin.x));
+	qprintf("REQUESTING SET SURFACE FOR TYPE %d\n", fra->type);
 	if (fra->type == 3)
 		fra->max_loop = NLOOP3;
 	else
 		fra->max_loop = NLOOP;
+	qprintf("fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 7)\n");
+	qprintf("%.1Lf * (F_FLOOR(F_LG(%.1Le) / F_LG(3)) + 7)\n", fra->loop_coef, fra->zoom);
+	qprintf("%.1Lf * (%.1Le + 7)\n", fra->loop_coef, F_FLOOR(F_LG(fra->zoom) / F_LG(3)));
+
+
+	qprintf("Maxloop: %.1f * %d\n", fra->loop_coef, fra->max_loop);
+
 	fra_draw_screen((const t_fra*)fra);
 	return (0);
 }

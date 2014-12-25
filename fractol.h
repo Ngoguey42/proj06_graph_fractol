@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 15:01:17 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:21:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 #  define FRAKEY_QUIT 65307
 #  define FRAKEY_P 'p'
+#  define FRAKEY_V 'v'
+#  define FRAKEY_C 'c'
 #  define FRAKEY_O 'o'
 #  define FRAKEY_W 'w'
 #  define FRAKEY_S 's'
@@ -61,6 +63,8 @@
 
 #  define FRAKEY_QUIT SDLK_ESCAPE
 #  define FRAKEY_P SDLK_p
+#  define FRAKEY_V SDLK_v
+#  define FRAKEY_C SDLK_c
 #  define FRAKEY_O SDLK_o
 #  define FRAKEY_W SDLK_w
 #  define FRAKEY_S SDLK_s
@@ -84,9 +88,15 @@
 
 #define PEACE(A1, A2) A1 A2; (void)A2
 
+# ifndef NUMTHREAD
+#  define NUMTHREAD 1
+# endif
 
-# define NUMTHREAD 1
-
+# if NUMTHREAD <= 1
+#  define NTHREADSPEEDFACTOR 1
+# else
+#  define NTHREADSPEEDFACTOR (NUMTHREAD / 2)
+# endif
 /* # define WINY (128. * 4.) */
 // # define WINY 600.
 # define WINY (100. * 5.)
@@ -96,8 +106,10 @@
 
 # define DBG (0)
 
-# define XYSPEEDBASE 0.005
+# define XYSPEEDBASE 0.03
 # define ZOOMSPEEDBASE 1.005
+
+# define NUMTHEMES 3
 
 # define STARTCAMX2 -1.0
 # define STARTCAMY2 1.0
@@ -125,7 +137,7 @@
 
 #define NLOOP (int)(70. * fra->loop_coef * ((fra->zoom > 10) ? F_LG(fra->zoom) / F_LG(10): 1.))
 
-#define NLOOP3 (int)(fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 7))
+#define NLOOP3 (int)(fra->loop_coef * (F_FLOOR(F_LG(fra->zoom) / F_LG(3)) + 6))
 
 #define STOPCOND(ARG) (ARG > 100.)
 
@@ -169,7 +181,7 @@ typedef struct	s_fra
 	int			type;
 	F_T			*sierp_deltas;
 	int			theme;
-	t_co		(*themes[2])(int v, int max);
+	t_co		(*themes[NUMTHEMES])(int v, int max);
 }				t_fra;
 
 typedef struct s_frathread
@@ -222,6 +234,7 @@ int     fra_sierpinski(F_COO pix, const t_fra *fra);
 ** Env Modification.
 */
 void	fra_init_env(t_fra *fra, int type);
+void	fra_init_pertype(t_fra *fra, int type);
 int		fra_set_defpos(t_fra *fra);
 int		fra_set_cuspos1(t_fra *fra);
 int		fra_move_void(void *fra, clock_t el);
@@ -246,6 +259,7 @@ int		fra_show_hud(const t_fra *fra);
 F_T		fra_get_n_nextval(F_T val, int n);
 t_co	fra_theme_0(int c, int max);
 t_co	fra_theme_1(int c, int max);
+t_co	fra_theme_2(int c, int max);
 
 
 /* int		fra_read_input(int ac, char *av[1], t_fra reffra, t_fra **fra_t[1]); */

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:43:13 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 10:12:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int ac, char *av[])
 /* 	fra_read_input(ac, av, fra, frat); */
 	ft_bzero(&fra, sizeof(t_fra));
 	fra.sierp_deltas = (F_T*)&sierp_deltas;
-	fra_init_env(&fra, 2);
+	fra_init_env(&fra, 1);
 	if (fra_init_window(&fra))
 		return (1);
 	fra_pause(&fra);

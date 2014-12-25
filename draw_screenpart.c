@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:12:44 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:33:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 09:59:42 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		fra_draw_scpart(const t_fra *fra, int part)
 	pix.y += fra->pxin.y * (F_T)(i + 1);
 	while (i++ < WIN_Y / NUMTHREAD * part)
 	{
-		fra_draw_row2(fra, pix, i * WIN_X, (i + 1) * WIN_X);
+		fra_draw_row1(fra, pix, i * WIN_X, (i + 1) * WIN_X);
 		pix.y += fra->pxin.y;
 	}
 	return (0);

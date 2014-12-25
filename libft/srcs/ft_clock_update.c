@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/12 09:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 15:18:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 09:34:02 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static const char	*ex_we(t_clockev *ev)
 {
 	int		calls_deducted;
 
-	ev->f(ev->data, ev->el);
-	ev->el = 0;
-	ev->cl--;
+/* 	ev->f(ev->data, ev->el); */
+/* 	ev->el = 0; */
+/* 	ev->cl--; */
 
 
-	return (NULL);
+/* 	return (NULL); */
 	if (ev->el >= ev->dt)
 	{
 		calls_deducted = (int)((ev->el + ev->aht) / ev->dt);
@@ -110,6 +110,8 @@ void				ft_clock_loophook(void)
 	while (*evs != NULL)
 	{
 		(*evs)->el += elapsed;
+/* 		qprintf("clockloop %llu - %llu = %llu  (%06.3f)\n", */
+/* 				prev, cur, elapsed, (double)cur / (double)CLOCKS_PER_SEC); */
 		calls_tab[(*evs)->type & 0x0f](*evs);
 		if ((*evs)->cl > 0)
 			evs++;
