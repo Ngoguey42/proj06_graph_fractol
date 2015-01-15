@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/09 12:52:24 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/15 09:40:10 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -128,7 +128,6 @@ $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
 	@if [ $(W) -eq 0 ] ; then printf "\n$(Y)%-6s$(E) -o $(R)$(OBJPATH)/%%.o$(E) $(CFLAGS) -I $(INCLUDE) -c $(SRCPATH)/%%.c\n" "$(CC)" ; fi
 	$(eval W = 1)
 	$(eval COUNT = $(shell echo "($(COUNT) + 1) % $(OBJPERLINES)" | bc))
-	 @#printf "$(R)%-*s$(E)" $(TABLEN) "$@"
 	@if [ $(COUNT) -eq 0 ] ; then printf "$(R)%s$(E)\n" "$@" ; else printf "$(R)%-*s$(E)" $(TABLEN) "$@" ; fi
 	@mkdir -p $(dir $@)
 	@$(CC) -o $@ $(CFLAGS) -I $(INCLUDE) -c $<

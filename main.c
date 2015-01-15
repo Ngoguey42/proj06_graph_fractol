@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 11:40:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 09:35:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	readinput(int ac, char *av[])
 		return (2);
 	else if (*av[1] == 'S')
 		return (3);
-	ft_printf("Invalid Arguments, Use:\n\t./fractol J/M/S\n");
+	ft_putendl("Invalid Arguments, Use:\n\t./fractol J/M/S");
 	return (-1);
 }
 

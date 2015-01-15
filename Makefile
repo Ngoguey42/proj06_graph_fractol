@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/25 11:38:33 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/15 09:37:59 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -22,12 +22,12 @@ SRCPATH = .
 INCLUDE = -I ./
 
 # MULTI THREAD
-THREADFLAGS = -D NUMTHREAD=8
-DRAWFILES = draw_screen_async.c
+# THREADFLAGS = -D NUMTHREAD=8
+# DRAWFILES = draw_screen_async.c
 
 ## SINGLE THREAD
-# THREADFLAGS = 
-# DRAWFILES = draw_screen_sync.c
+THREADFLAGS = 
+DRAWFILES = draw_screen_sync.c
 
 
 # MLX
@@ -71,7 +71,10 @@ R = \033[0;31m
 G = \033[0;32m
 E = \033[39m
 
-all: l $(NAME)
+W = 0
+
+all: l
+	@$(MAKE) $(NAME) --no-print-directory
 
 $(NAME): $(OBJECTS)
 	@echo -e "$(Y)[COMPILING FRACTOL] $(G) $(CC) -o $@ $(CFLAGS) objs.o $(LIBS) $(E)"
@@ -79,8 +82,20 @@ $(NAME): $(OBJECTS)
 	@echo -e "$(Y)[COMPILING FRACTOL DONE]$(E)"
 
 $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
+	@if [ $(W) -eq 0 ] ; then printf "=>$(R)%-10s$(E): %s\n=>$(R)%-10s$(E): %s\n=>$(R)%-10s$(E): %s\n=>$(R)%-10s$(E): %s\n"\
+		"CC"\
+		"$(CC)"\
+		"CFLAGS"\
+		"$(CFLAGS)"\
+		"INCLUDES"\
+		"$(INCLUDES)"\
+		"LIBS"\
+		"$(LIBS)" ;\
+	fi
+	$(eval W = 1)
 	@mkdir -p $(dir $@)
-	$(CC) -o $@ $(CFLAGS) $(INCLUDES) $(LIBS) -c $<
+	@echo "$(R)CC$(E) -o $@ $(R)CFLAGS INCLUDES LIBS$(E) -c $<"
+	@$(CC) -o $@ $(CFLAGS) $(INCLUDES) $(LIBS) -c $<
 
 clean:
 	$(RM) $(OBJPATH)
