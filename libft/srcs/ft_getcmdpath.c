@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 10:04:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 09:11:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:55:32 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ static int	cmd_as_path(char **cmdname, char *refs[4])
 	char	*expansion;
 
 	ret = ft_expand_tilde(*cmdname, (char**)(refs + 1), &expansion);
-	if (ret > 0)
-		return (ret);
-	if (ret == 0)
+	if (ret >= 0)
 	{
 		free(*cmdname);
 		*cmdname = expansion;
-	}
-	if (ret >= 0)
 		return (ret);
+	}
 	return (test_path("", *cmdname));
 }
 

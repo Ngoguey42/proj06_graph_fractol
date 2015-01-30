@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/15 09:40:10 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/30 07:20:53 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -72,7 +72,8 @@ ft_strccpy.c                  ft_voidcmp.c ft_strnstr.c ft_striteri.c\
 ft_catpath.c                                            ft_strmap.c\
 ft_filename.c get_next_line.c                           ft_strmapi.c\
 ft_resolve_path.c ft_getcmdpath.c ft_getcmdpath_env.c ft_access.c\
-ft_envget.c ft_envnew.c ft_expand_tilde_env.c ft_expand_tilde.c\
+ft_envget.c ft_envnew.c ft_envnewkv.c ft_envdel.c\
+ft_expand_tilde_env.c ft_expand_tilde.c\
 \
 ft_lstnew.c       ft_lstdel.c       ft_lstiter.c   ft_lstdupone.c ft_lstlast.c\
 ft_lstpushwhere.c ft_lstdelone.c    ft_lstiterif.c ft_lstdup.c    ft_lstat.c\
@@ -83,7 +84,7 @@ ft_lstnewwhere.c  ft_lstfreecont.c  ft_lstrev.c    ft_lstmap.c    ft_lstfind.c\
                                                                   ft_lstprnt.c\
 \
 ft_log10.c ft_powi.c      ft_ceil.c    ft_abs.c         \
-ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     \
+ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     ft_nextval.c\
 ft_log2.c                 ft_dbltype.c ft_getbitarray.c ft_idiv.c\
 \
 ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c\
@@ -106,7 +107,8 @@ PTFSRCSFILES = \
 	debug.c             build_nonprintable_string_deps.c\
 	                    build_uppercases2.c         buffer_flush_lscols.c\
 	                    build_dec_float.c           buffer_lscols_getdatas.c\
-	                    build_dec_float_nbr.c
+	                    build_dec_float_nbr.c       \
+                        build_wchars_and_wstrings.c
 
 #SOURCES/OBJECTS TARGETS
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
@@ -128,6 +130,7 @@ $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
 	@if [ $(W) -eq 0 ] ; then printf "\n$(Y)%-6s$(E) -o $(R)$(OBJPATH)/%%.o$(E) $(CFLAGS) -I $(INCLUDE) -c $(SRCPATH)/%%.c\n" "$(CC)" ; fi
 	$(eval W = 1)
 	$(eval COUNT = $(shell echo "($(COUNT) + 1) % $(OBJPERLINES)" | bc))
+	 @#printf "$(R)%-*s$(E)" $(TABLEN) "$@"
 	@if [ $(COUNT) -eq 0 ] ; then printf "$(R)%s$(E)\n" "$@" ; else printf "$(R)%-*s$(E)" $(TABLEN) "$@" ; fi
 	@mkdir -p $(dir $@)
 	@$(CC) -o $@ $(CFLAGS) -I $(INCLUDE) -c $<

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 10:35:39 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/15 09:35:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 07:14:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ int			fra_show_hud(const t_fra *fra)
 	co = VCOTOI(255, 255, 255, 0);
 	cooi = ACOOTOI(WIN_X - 120, WIN_Y - 15 * 8, 0);
 	ft_sprintf(buffer, "%13s %s", "Movements:", "WASD");
-	fra_put_string(*fra, ICOOADDY(cooi, 0), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 0), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Zoom:", "Scroll");
-	fra_put_string(*fra, ICOOADDY(cooi, 15), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 15), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Positions:", "OP");
-	fra_put_string(*fra, ICOOADDY(cooi, 30), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 30), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "This frame:", "I");
-	fra_put_string(*fra, ICOOADDY(cooi, 45), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 45), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Num-loop coef:", "-+");
-	fra_put_string(*fra, ICOOADDY(cooi, 60), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 60), co, buffer);
 	ft_sprintf(buffer, "        (%d loops)", fra->max_loop);
-	fra_put_string(*fra, ICOOADDY(cooi, 75), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 75), co, buffer);
 	ft_sprintf(buffer, "%13s %s", "Color/Fractal:", "CV");
-	fra_put_string(*fra, ICOOADDY(cooi, 90), co, buffer);
+	fra_put_string(fra, ICOOADDY(cooi, 90), co, buffer);
 	return (0);
 }
 

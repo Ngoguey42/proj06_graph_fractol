@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getcmdpath_env.c                                :+:      :+:    :+:   */
+/*   ft_nextval.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/13 08:23:44 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 08:23:45 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/28 08:50:34 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/28 08:52:28 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "libft.h"
 
-int			ft_getcmdpath_env(const char *cmd, const char **env, char **ptr)
+double		ft_nextval(double val, double direction)
 {
-	char	*ref[4];
-
-	ref[0] = ft_envget(env, "PATH=");
-	ref[1] = ft_envget(env, "HOME=");
-	ref[2] = ft_envget(env, "PWD=");
-	ref[3] = ft_envget(env, "OLDPWD=");
-	if (ref[0] != NULL)
-		ref[0] += 5;
-	if (ref[1] != NULL)
-		ref[1] += 5;
-	if (ref[2] != NULL)
-		ref[2] += 4;
-	if (ref[3] != NULL)
-		ref[3] += 7;
-	return (ft_getcmdpath(cmd, ref, ptr));
+	if (direction > 0)
+		return (floor(val) + 1.);
+	else if (direction < 0)
+		return (ceil(val) - 1.);
+	return (val);
 }

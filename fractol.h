@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 11:40:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 07:14:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,9 @@
 /*
 ** Put pixels.
 */
-int		fra_put_string(t_fra fra, t_cooi coo, t_co c, char *str);
-int		fra_puts_pix(t_fra fra, t_cooi coo, t_co c);
-int		fra_puts_fpix(t_fra fra, t_cood coof, t_co c);
+int		fra_put_string(const t_fra *fra, t_cooi coo, t_co c, char *str);
+int		fra_puts_pix(const t_fra *fra, t_cooi coo, t_co c);
+int		fra_puts_fpix(const t_fra *fra, t_cood coof, t_co c);
 int		fra_puts_dst(const t_img *s, int dst, t_co c);
 
 /*

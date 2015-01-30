@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getcmdpath_env.c                                :+:      :+:    :+:   */
+/*   ft_envdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/13 08:23:44 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 08:23:45 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/20 10:44:55 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/28 11:31:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_debug.h"
 #include "libft.h"
 
-int			ft_getcmdpath_env(const char *cmd, const char **env, char **ptr)
+int			ft_envdel(char **env, const char *key)
 {
-	char	*ref[4];
+	char	*line;
+	size_t	envlen;
 
-	ref[0] = ft_envget(env, "PATH=");
-	ref[1] = ft_envget(env, "HOME=");
-	ref[2] = ft_envget(env, "PWD=");
-	ref[3] = ft_envget(env, "OLDPWD=");
-	if (ref[0] != NULL)
-		ref[0] += 5;
-	if (ref[1] != NULL)
-		ref[1] += 5;
-	if (ref[2] != NULL)
-		ref[2] += 4;
-	if (ref[3] != NULL)
-		ref[3] += 7;
-	return (ft_getcmdpath(cmd, ref, ptr));
+	if (env == NULL)
+		return (1);
+	line = ft_envget((const char**)env, key);
+	if (line == NULL)
+		return (1);
+	envlen = 0;
+	while (env[envlen] != NULL)
+		envlen++;
+	while (*env != line)
+		envlen--;
+	env++;
+	ft_memmove(env, env + 1, envlen * sizeof(char*));
+	return (0);
 }

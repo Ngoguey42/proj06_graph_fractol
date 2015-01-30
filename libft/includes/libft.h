@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 10:45:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/28 08:53:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ t_ui32	ft_sqrtfloor(t_ui32 n);
 double	ft_ceil(double nb);
 double	ft_floor(double nb);
 
+double	ft_nextval(double val, double direction);
 int		ft_idiv_ceil(int n, int d);
 int		ft_idiv_floor(int n, int d);
 /*
@@ -352,7 +353,11 @@ char	**ft_envgetp(const char **env, const char *key);
 char	*ft_envget(const char **env, const char *key);
 char	**ft_envupdate_m(char ***env, char *line);
 char	**ft_envnew_m(char ***env, char *line);
+char	**ft_envupdate(char ***env, char *line);
 char	**ft_envnew(char ***env, char *line);
+char	**ft_envupdatekv_m(char ***env, char *k, char *v);
+char	**ft_envnewkv_m(char ***env, char *k, char *v);
+int		ft_envdel(char **env, const char *key);
 int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
 int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);
 
