@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:42:05 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 11:06:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 09:05:54 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,40 @@ int			fra_set_defpos(t_fra *fra)
 	return (0);
 }
 
+static void	set_func(t_fra *fra, int type)
+{
+	if (type == 2)
+		fra->fra_func = fra_mandelbrot;
+	else if (type == 3)
+		fra->fra_func = fra_sierpinski;
+	else if (type == 4)
+		fra->fra_func = fra_tardis;		
+	else if (type == 5)
+		fra->fra_func = fra_douady;
+	else if (type == 6)
+		fra->fra_func = fra_toad;
+	else if (type == 7)
+		fra->fra_func = fra_bretzel;
+	else if (type == 8)
+		fra->fra_func = fra_test;
+	else
+		fra->fra_func = fra_julia;
+	return ;
+}
+
 void		fra_init_pertype(t_fra *fra, int type)
 {
 	fra->type = type;
 	fra_set_defpos(fra);
-	if (type == 2)
-	{
-		fra->fra_func = fra_mandelbrot;
-		fra->theme = 0;
-	}
-	else if (type == 3)
-	{
+	if (type == 3)
 		build_sierp_deltas_tab(fra);
-		fra->fra_func = fra_sierpinski;
+	if (type == 2 || type == 4 || type == 5 || type == 6 || type == 7)
+		fra->theme = 0;
+	else if (type == 3 || type == 8)
 		fra->theme = 1;
-	}
 	else
-	{
-		fra->fra_func = fra_julia;
 		fra->theme = 2;
-	}
+	set_func(fra, type);
 }
 
 void		fra_init_env(t_fra *fra, int type)

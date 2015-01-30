@@ -13,7 +13,7 @@ Goals:
 Recommended bonuses:
 - [X] Movements.
 - [X] Change colors on key press.
-- [ ] More fractals.
+- [X] More fractals.
 - [ ] 3d representation.
 - [ ] Open two frames for two fractals, at the same time.
 
@@ -22,7 +22,6 @@ My additions:
 - [X] "+/-" keys to change the number of loops.
 - [X] Time dependant movements, instead of CPU dependant. ([events.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/events.c)) ([libft/srcs/ft_clock[...].c](https://github.com/Ngoguey42/proj06_graph_fractol/tree/master/libft/srcs))
 - [X] Multi thread rendering. ([draw_screen_async.c](/draw_screen_async.c))
-- [ ] CUDA rendering. (failed at compilation) ([draw_mandelbrot_cuda.cu](/draw_mandelbrot_cuda.cu))
 - [X] SDL compatibility. (dirty)
 
 Usage:

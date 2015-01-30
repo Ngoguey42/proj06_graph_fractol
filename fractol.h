@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 07:14:38 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 09:25:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <libft.h>
 # include <ft_math.h>
 # include <ft_clock.h>
+#include <ft_debug.h> //debug
 
 /*
 ** My SDL implementation's main purpose, was to be able to run fractol on
@@ -184,6 +185,11 @@ int		fra_draw_row1_preci(const t_fra *fra, F_COO pix, int sta, int end);
 int		fra_julia(F_COO pix, const t_fra *fra);
 int		fra_mandelbrot(F_COO pix, const t_fra *fra);
 int		fra_sierpinski(F_COO pix, const t_fra *fra);
+int		fra_douady(F_COO pix, const t_fra *fra);
+int		fra_tardis(F_COO pix, const t_fra *fra);
+int		fra_toad(F_COO pix, const t_fra *fra);
+int		fra_bretzel(F_COO pix, const t_fra *fra);
+int		fra_test(F_COO pix, const t_fra *fra);
 
 /*
 ** Env Modification.
@@ -214,5 +220,9 @@ F_T		fra_get_n_nextval(F_T val, int n);
 t_co	fra_theme_0(int c, int max);
 t_co	fra_theme_1(int c, int max);
 t_co	fra_theme_2(int c, int max);
+F_COO	ft_cadd(F_COO c1, F_COO c2);
+F_COO	ft_cmult(const F_COO *c1, const F_COO *c2);
+F_COO	ft_cdiv(F_COO c1, F_COO c2);
+F_COO	ft_csub(F_COO c1, F_COO c2);
 
 #endif

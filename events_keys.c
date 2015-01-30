@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/22 08:51:12 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 10:20:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 08:50:41 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		fra_keydo_hook(int keycode, t_fra *fra)
 	else if (keycode == FRAKEY_C && (fra->redraw = 1))
 		fra->theme = (fra->theme + 1) % NUMTHEMES;
 	else if (keycode == FRAKEY_V && (fra->redraw = 1))
-		fra_init_pertype(fra, (fra->theme) % 3 + 1);
+		fra_init_pertype(fra, (fra->type) % 8 + 1);
 	else if (keycode == FRAKEY_W)
 		fra->ev[0] = 1;
 	else if (keycode == FRAKEY_S)

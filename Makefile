@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/30 07:10:14 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/30 09:06:53 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -22,12 +22,12 @@ SRCPATH = .
 INCLUDE = -I ./
 
 # MULTI THREAD
-THREADFLAGS = -D NUMTHREAD=8
-DRAWFILES = draw_screen_async.c
+# THREADFLAGS = -D NUMTHREAD=8
+# DRAWFILES = draw_screen_async.c
 
 ## SINGLE THREAD
-# THREADFLAGS = 
-# DRAWFILES = draw_screen_sync.c
+THREADFLAGS = 
+DRAWFILES = draw_screen_sync.c
 
 
 # MLX
@@ -56,9 +56,10 @@ LFTG = g
 LFTGRE = gre
 
 SRCSFILES = main.c events.c events_keys.c movements.c $(SPECIALFILES)\
-init_env.c themes.c \
+init_env.c themes.c\
 $(DRAWFILES)\
-draw_row.c draw_screenpart.c fractal_functions.c\
+draw_row.c draw_screenpart.c fractal_functions.c fractal_functions_bonus.c\
+ft_complex.c\
 debug.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))

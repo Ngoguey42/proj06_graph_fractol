@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/23 12:13:24 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/25 11:06:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 09:11:45 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ int				fra_sierpinski(F_COO pix, const t_fra *fra)
 	return (i);
 }
 
-static F_COO	ft_cmult(F_COO c1, F_COO c2)
-{
-	F_T	tmp;
-
-	tmp = c1.x;
-	c1.x = c1.x * c2.x - c1.y * c2.y;
-	c1.y = tmp * c2.y + c1.y * c2.x;
-	return (c1);
-}
-
 int				fra_julia(F_COO pix, const t_fra *fra)
 {
 	int		i;
@@ -52,7 +42,7 @@ int				fra_julia(F_COO pix, const t_fra *fra)
 	while (i < fra->max_loop)
 	{
 		i++;
-		pix = ft_cmult(pix, pix);
+		pix = ft_cmult(&pix, &pix);
 		pix.x += fra->m_coo.x;
 		pix.y += fra->m_coo.y;
 		if (STOPCOND(pix.x) || STOPCOND(pix.y))
