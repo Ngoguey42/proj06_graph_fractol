@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 06:51:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 09:25:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 13:00:42 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@
 ** Change WINY to change Frame size.
 */
 
-# define WINY (750.)
+# define WINY (500.)
 
 # define WIN_Y (int)(WINY)
 # define WIN_X (int)(WINY * 1.0)

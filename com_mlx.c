@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 07:44:42 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/15 09:30:34 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 13:27:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	fra_init_window(t_fra *fra)
 	mlx_hook(WIN1P, 4, 0x04, &fra_butdo_hook, (void*)fra);
 	mlx_hook(WIN1P, 6, 0x40, &fra_motion_hook, (void*)fra);
 	mlx_loop_hook(SERVP, &fra_loop_hook, fra);
-	fra->s.img = mlx_new_image(SERVP, WIN_X, WIN_Y);
-	fra->s.dat = mlx_get_data_addr(fra->s.img, &fra->s.bpp,
-							&fra->s.lsz, &fra->s.end);
+	if ((fra->s.img = mlx_new_image(SERVP, WIN_X, WIN_Y)) == NULL)
+		return (1);
+	if ((fra->s.dat = mlx_get_data_addr(fra->s.img, &fra->s.bpp,
+									&fra->s.lsz, &fra->s.end)) == NULL)
+		return (1);
 	return (0);
 }
 
@@ -48,6 +50,7 @@ int fra_set_surface(t_fra *fra)
 	fra->precisionloss = (
 		fra_get_n_nextval(ABS(fra->coo.x), 16) >
 		ABS(fra->coo.x) + ABS(fra->pxin.x));
+
 	if (fra->type == 3)
 	{
 		fra->max_loop = NLOOP3;

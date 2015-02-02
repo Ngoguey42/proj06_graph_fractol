@@ -6,11 +6,10 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 10:44:55 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/28 11:31:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 10:22:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_debug.h"
 #include "libft.h"
 
 int			ft_envdel(char **env, const char *key)
@@ -27,8 +26,10 @@ int			ft_envdel(char **env, const char *key)
 	while (env[envlen] != NULL)
 		envlen++;
 	while (*env != line)
+	{
+		env++;
 		envlen--;
-	env++;
+	}
 	ft_memmove(env, env + 1, envlen * sizeof(char*));
 	return (0);
 }
