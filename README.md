@@ -1,7 +1,7 @@
 # Project #6 fractol, Dec 2014
 >>>>> #####Fractal exploration project.
 
-#####Grade ``(TBD/100)`` ``(TBD/1..)*``
+#####Grade ``(117/100)`` ``(117/118)*``
 --------  -----------------------
 Goals:
 - [X] Use "minilibX", school's truncated version of "X11".
@@ -21,7 +21,7 @@ My additions:
 * [X] Sierpinsky carpet, as a third fractal.
 - [X] "+/-" keys to change the number of loops.
 - [X] Time dependant movements, instead of CPU dependant. ([events.c](https://github.com/Ngoguey42/proj06_graph_fractol/blob/master/events.c)) ([libft/srcs/ft_clock[...].c](https://github.com/Ngoguey42/proj06_graph_fractol/tree/master/libft/srcs))
-- [X] Multi thread rendering. ([draw_screen_async.c](/draw_screen_async.c))
+- [X] Multi thread rendering. ([draw_screen_async.c](/draw_screen_async.c))(Edit makefile before compilation, lines 24-30)
 - [X] SDL compatibility. (dirty)
 
 Usage:
@@ -49,6 +49,6 @@ All my C files strictly observes school's norm, it may often lead to odd or illo
 ```
 *
 - A grade of 85 was required to validate the project.
-- A maximum grade of 1.. was reachable.
+- A maximum grade of 118 was reachable.
 - Second sessions are organised for failed projects.
 ```
